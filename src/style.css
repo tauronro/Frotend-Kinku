@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles for Kinku */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply font-sans text-gray-900 bg-white;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply px-6 py-3 rounded-lg font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+  
+  .btn-primary {
+    @apply bg-accent-500 text-white hover:bg-accent-600 focus:ring-accent-500;
+  }
+  
+  .btn-secondary {
+    @apply bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-500;
+  }
+  
+  .btn-outline {
+    @apply border-2 border-accent-500 text-accent-500 hover:bg-accent-500 hover:text-white focus:ring-accent-500;
+  }
+  
+  .section-padding {
+    @apply py-16 px-4;
+  }
+  
+  .container {
+    @apply max-w-7xl mx-auto;
+  }
+  
+  .card {
+    @apply bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300;
+  }
+  
+  .gradient-bg {
+    @apply bg-gradient-to-br from-primary-50 to-primary-100;
+  }
+  
+  .hero-gradient {
+    @apply bg-gradient-to-br from-primary-500 via-primary-600 to-primary-700;
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary-500 to-primary-700 bg-clip-text text-transparent;
+  }
+  
+  .glass-effect {
+    @apply bg-white/10 backdrop-blur-md border border-white/20;
+  }
+  
+  .floating-animation {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+  
+  .pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite alternate;
+  }
+  
+  @keyframes pulse-glow {
+    from { box-shadow: 0 0 20px rgba(255, 111, 72, 0.3); }
+    to { box-shadow: 0 0 30px rgba(255, 111, 72, 0.6); }
+  }
+  
+  .form-slide-down {
+    animation: form-slide-down 0.5s ease-out;
+  }
+  
+  @keyframes form-slide-down {
+    from { 
+      opacity: 0;
+      transform: translateY(-20px) scale(0.95);
+    }
+    to { 
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  
+  .bounce-in {
+    animation: bounce-in 0.6s ease-out;
+  }
+  
+  @keyframes bounce-in {
+    0% { 
+      transform: scale(0.3);
+      opacity: 0;
+    }
+    50% { 
+      transform: scale(1.05);
+    }
+    70% { 
+      transform: scale(0.9);
+    }
+    100% { 
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}
