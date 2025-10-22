@@ -21,7 +21,8 @@ export const Header = () => {
     return location.pathname === path
   }
 
-  const isTransparent = transparentRoutes.has(location.pathname) && !isScrolled
+  // Forzar fondo sólido cuando el menú móvil está abierto para evitar que el contenido de fondo tape el menú
+  const isTransparent = transparentRoutes.has(location.pathname) && !isScrolled && !isMobileMenuOpen
   const linkBase = isTransparent ? 'text-white hover:text-accent-300' : 'text-gray-700 hover:text-primary-500'
 
   return (
@@ -69,7 +70,7 @@ export const Header = () => {
       </div> */}
 
       {/* Main Navigation */}
-      <nav className="container mx-auto px-3 py-1 md:px-4 md:py-3">
+      <nav className="container mx-auto px-4 py-1 md:px-4 md:py-3">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
@@ -164,7 +165,7 @@ export const Header = () => {
           
           {/* Mobile Menu Button */}
           <button 
-            className={`md:hidden p-2 rounded-lg transition-colors ${isTransparent ? 'text-white hover:bg-white/10' : 'hover:bg-gray-100'}`}
+            className={`md:hidden ml-2 p-3 rounded-lg transition-colors ${isTransparent ? 'text-white hover:bg-white/10' : 'text-gray-700 hover:bg-gray-100'}`}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
