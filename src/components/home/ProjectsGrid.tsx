@@ -54,16 +54,11 @@ export const ProjectsGrid = () => {
   }
 
   return (
-    <section className="min-h-screen bg-gray-900 relative overflow-hidden">
+    <section className="min-h-[80vh] bg-gray-900 relative overflow-hidden">
       {/* Fondo con patrón arquitectónico */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"></div>
-      <div className="absolute inset-0">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `repeating-linear-gradient(0deg, rgba(255,255,255,0.08) 0, rgba(255,255,255,0.08) 1px, transparent 1px, transparent 50px), repeating-linear-gradient(90deg, rgba(255,255,255,0.08) 0, rgba(255,255,255,0.08) 1px, transparent 1px, transparent 50px)`
-        }}></div>
-      </div>
       
-      <div className="container mx-auto px-4 relative z-10 min-h-screen flex flex-col justify-center">
+      <div className="container mx-auto px-4 relative z-10 min-h-[80vh] flex flex-col justify-center">
         <div className="pb-8">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8">
             <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 lg:mb-0">
@@ -108,7 +103,7 @@ export const ProjectsGrid = () => {
                     <div className="flex items-center gap-3 mt-auto">
                       <Link
                         to={project.href}
-                        className="btn btn-primary"
+                        className="inline-flex items-center justify-center px-4 py-2 rounded-md font-semibold bg-[rgb(0_168_144)] text-white hover:opacity-90 transition-colors"
                         aria-label={`Ver ${project.name}`}
                       >
                         Ver proyecto
@@ -117,7 +112,7 @@ export const ProjectsGrid = () => {
                         href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(project.address)}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="btn btn-outline"
+                        className="inline-flex items-center justify-center px-4 py-2 rounded-md font-semibold border border-[rgb(0_168_144)] text-[rgb(0_168_144)] hover:bg-[rgb(0_168_144)] hover:text-white transition-colors"
                         onMouseEnter={() => setHoveredMapId(project.id)}
                         onMouseLeave={() => setHoveredMapId(null)}
                         onFocus={() => setHoveredMapId(project.id)}

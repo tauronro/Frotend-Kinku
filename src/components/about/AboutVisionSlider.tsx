@@ -49,8 +49,23 @@ export const AboutVisionSlider = () => {
   const active = slides[index]
 
   return (
-    <section className="section-padding bg-white">
-      <div className="container">
+    <section className="section-padding bg-white relative overflow-hidden">
+      {/* Fondo decorativo inspirado en Metriku pero con alineación distinta */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Marco */}
+        <div className="absolute top-10 left-8 right-8 bottom-10 border-2 border-accent-500 rounded-3xl opacity-20"></div>
+        {/* Líneas verticales a tercios */}
+        <div className="absolute left-1/3 top-0 w-0.5 h-full bg-gradient-to-b from-transparent via-accent-500 to-transparent opacity-40"></div>
+        <div className="absolute left-2/3 top-0 w-0.5 h-full bg-gradient-to-b from-transparent via-accent-500 to-transparent opacity-20"></div>
+        {/* Diagonales invertidas */}
+        <div className="absolute top-1/3 right-0 w-1/3 h-0.5 bg-gradient-to-l from-accent-500 to-transparent transform -rotate-30 origin-right opacity-30"></div>
+        <div className="absolute bottom-1/4 left-0 w-1/3 h-0.5 bg-gradient-to-r from-accent-500 to-transparent transform rotate-30 origin-left opacity-30"></div>
+        {/* Acentos */}
+        <div className="absolute top-1/2 right-1/3 w-3 h-3 bg-accent-500 transform rotate-45"></div>
+        <div className="absolute top-1/4 left-1/5 w-2 h-2 bg-accent-400 rounded-full"></div>
+      </div>
+
+      <div className="container relative z-10">
         {/* Header */}
         <div className="max-w-3xl mb-10">
           <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight">
