@@ -94,8 +94,8 @@ export const Projects = () => {
                     <h3 className="text-3xl font-bold text-gray-900 mb-4">{p.title}</h3>
                     <p className="text-gray-600 mb-6">{p.excerpt}</p>
                     <div className="flex flex-col gap-3">
-                      <Link to={p.link} className="btn btn-primary w-full">Ver proyecto</Link>
-                      <Link to="/contacto" className="btn btn-outline w-full">Más Información</Link>
+                      <Link to={p.link} className="w-full inline-flex items-center justify-center px-4 py-2 rounded-md font-semibold bg-[rgb(0_168_144)] text-white hover:opacity-90 transition-colors">Ver proyecto</Link>
+                      <Link to="/contacto" className="w-full inline-flex items-center justify-center px-4 py-2 rounded-md font-semibold border border-[rgb(0_168_144)] text-[rgb(0_168_144)] hover:bg-[rgb(0_168_144)] hover:text-white transition-colors">Más Información</Link>
                     </div>
                   </div>
                 </div>

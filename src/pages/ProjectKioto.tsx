@@ -6,8 +6,11 @@ export const ProjectKioto = () => {
     <div>
       <PageBanner
         title="Proyecto Kioto"
-        subtitle="Apartamentos y apartaestudios modernos en el corazón de Bogotá"
+        subtitle="Kioto combina apartamentos y apartaestudios con diseño contemporáneo, acabados de primera calidad y ubicación estratégica. Pensado para quienes buscan comodidad, estilo y excelente conectividad, con espacios eficientes y amenidades que elevan la experiencia de vivir."
+        size="lg"
       />
+
+
 
       {/* Showcase / Galería principal sin scroll (mosaico) */}
       <section className="section-padding bg-white">
@@ -143,11 +146,11 @@ export const ProjectKioto = () => {
                   href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Calle 59 #17-43, Bogotá')}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn btn-primary"
+                  className="inline-flex items-center justify-center px-4 py-2 rounded-md font-semibold bg-[rgb(0_168_144)] text-white hover:opacity-90 transition-colors"
                 >
                   Ver en Google Maps
                 </a>
-                <Link to="/contacto" className="btn btn-outline">Contactar</Link>
+                <Link to="/contacto" className="inline-flex items-center justify-center px-4 py-2 rounded-md font-semibold border border-[rgb(0_168_144)] text-[rgb(0_168_144)] hover:bg-[rgb(0_168_144)] hover:text-white transition-colors">Contactar</Link>
               </div>
             </div>
           </div>

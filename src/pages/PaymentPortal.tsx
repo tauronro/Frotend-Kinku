@@ -1,159 +1,126 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { PageBanner } from '../components/common/PageBanner'
 
 export const PaymentPortal = () => {
-  const [formData, setFormData] = useState({
-    documentNumber: '',
-    email: '',
-    project: '',
-    paymentType: 'mensual'
-  })
+  const navigate = useNavigate()
+  const [selectedProduct, setSelectedProduct] = useState<string | null>(null)
+  const [openFaq, setOpenFaq] = useState<number | null>(0)
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    })
-  }
+  const products = [
+    {
+      id: 'kioto',
+      title: 'Proyecto Kioto',
+      description: 'Da clic aquí y paga el proyecto Kioto',
+    },
+    {
+      id: 'metriku',
+      title: 'Métriku',
+      description: 'Portal seguro para propietarios y arrendatarios',
+    },
+    {
+      id: 'pekin',
+      title: 'Pekín',
+      description: 'Pagos relacionados con nuestro proyecto Pekín',
+    },
+  ] as const
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Aquí iría la lógica para procesar el pago
-    console.log('Pago procesado:', formData)
-  }
+  const faqs = [
+    {
+      q: '¿Con qué plataforma se realiza el pago de mi vivienda?',
+      a: 'Trabajamos con una pasarela certificada PCI-DSS para garantizar la seguridad de tus datos y transacciones.'
+    },
+    {
+      q: '¿Es seguro ingresar mis datos en este sitio web?',
+      a: 'Sí. Tus datos viajan cifrados bajo HTTPS. No almacenamos información sensible de tarjetas en nuestros servidores.'
+    },
+    {
+      q: '¿Puedo cambiar la forma de pago?',
+      a: 'Puedes pagar con tarjeta débito/crédito, transferencia PSE o efectivo en puntos autorizados según disponibilidad.'
+    },
+    {
+      q: '¿Debo pagar algún costo adicional por el uso de la plataforma?',
+      a: 'Algunos métodos pueden incluir comisión de la pasarela. El costo se muestra antes de confirmar el pago.'
+    },
+    {
+      q: '¿Dónde me llegará el comprobante?',
+      a: 'El comprobante llegará a tu correo registrado. Si no lo recibes en 10 minutos, revisa tu SPAM o contáctanos.'
+    }
+  ]
 
   return (
     <div>
       <PageBanner
         title="Portal de Pagos"
         subtitle="Gestiona tus pagos de forma segura y sencilla."
+        size="sm"
       />
-      <section className="section-padding bg-white">
-        <div className="container">
-          <div className="text-center mb-16">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">Portal de Pagos</h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Gestiona tus pagos de manera segura y fácil. Accede a tu cuenta para realizar 
-              pagos, consultar estados y descargar comprobantes.
-            </p>
+      <section className="section-padding bg-white relative overflow-hidden">
+        {/* Fondo con patrón sutil */}
+        <div className="absolute inset-0 pointer-events-none opacity-10">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage:
+                "repeating-linear-gradient(0deg, rgba(0,168,144,0.15) 0, rgba(0,168,144,0.15) 1px, transparent 1px, transparent 60px), repeating-linear-gradient(90deg, rgba(0,168,144,0.12) 0, rgba(0,168,144,0.12) 1px, transparent 1px, transparent 60px)",
+            }}
+          />
+        </div>
+        <div className="container relative z-10">
+          {/* Título principal */}
+          <h2 className="text-center text-3xl md:text-5xl font-extrabold text-[rgb(0_168_144)] mb-10">
+            ¡Elige tu Producto a pagar!
+            <span className="block mx-auto mt-3 h-1 w-24 bg-[rgb(0_168_144)] rounded-full"></span>
+          </h2>
+
+          {/* Tarjetas de selección */}
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
+            {products.map((p) => (
+              <button
+                key={p.id}
+                onClick={() => {
+                  setSelectedProduct(p.id)
+                  if (p.id === 'kioto') navigate('/pago-kioto')
+                  if (p.id === 'metriku') navigate('/pago-metriku')
+                }}
+                aria-pressed={selectedProduct===p.id}
+                className={`group relative text-center rounded-xl border transition-all duration-300 p-8 bg-white hover:bg-[rgba(0,168,144,0.08)] hover:-translate-y-1 hover:shadow-2xl ${selectedProduct===p.id ? 'border-[rgb(0_168_144)] shadow-xl ring-1 ring-[rgb(0_168_144)]' : 'border-[rgb(0_168_144)]/40'}`}
+              >
+                {/* Línea superior acento */}
+                <span className={`absolute top-0 left-0 right-0 h-1 bg-[rgb(0_168_144)] transition-opacity ${selectedProduct===p.id ? 'opacity-100' : 'opacity-70 group-hover:opacity-100'}`}></span>
+                {selectedProduct===p.id && (
+                  <span className="absolute top-3 right-3 text-[rgb(0_168_144)]">✔</span>
+                )}
+                <div className="mx-auto mb-6 w-24 h-24 rounded-full bg-[rgb(0_168_144)] text-white grid place-items-center text-xl font-bold shadow-lg group-hover:scale-105 transition-transform">
+                  {p.id === 'metriku' ? 'métriku' : p.id === 'kioto' ? 'kioto' : 'pekín'}
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900">{p.title}</h3>
+                <p className="mt-3 text-gray-600 max-w-xs mx-auto">{p.description}</p>
+              </button>
+            ))}
           </div>
-          
-          <div className="max-w-2xl mx-auto">
-            <div className="card p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Acceder al Portal</h2>
-              
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label htmlFor="documentNumber" className="block text-sm font-medium text-gray-700 mb-2">
-                    Número de Documento
-                  </label>
-                  <input
-                    type="text"
-                    id="documentNumber"
-                    name="documentNumber"
-                    value={formData.documentNumber}
-                    onChange={handleChange}
-                    required
-                    placeholder="Ingresa tu número de cédula"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    placeholder="tu@email.com"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="project" className="block text-sm font-medium text-gray-700 mb-2">
-                    Proyecto
-                  </label>
-                  <select
-                    id="project"
-                    name="project"
-                    value={formData.project}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
-                  >
-                    <option value="">Selecciona tu proyecto</option>
-                    <option value="kioto">Proyecto Kioto</option>
-                    <option value="osaka">Proyecto Osaka</option>
-                  </select>
-                </div>
-                
-                <div>
-                  <label htmlFor="paymentType" className="block text-sm font-medium text-gray-700 mb-2">
-                    Tipo de Pago
-                  </label>
-                  <select
-                    id="paymentType"
-                    name="paymentType"
-                    value={formData.paymentType}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
-                  >
-                    <option value="mensual">Pago Mensual</option>
-                    <option value="cuota-inicial">Cuota Inicial</option>
-                    <option value="saldo">Saldo a Favor</option>
-                  </select>
-                </div>
-                
-                <button type="submit" className="btn btn-primary w-full">
-                  Acceder al Portal
-                </button>
-              </form>
+
+          {/* FAQ */}
+          <div className="grid md:grid-cols-[260px_1fr] gap-8 items-start">
+            <div className="flex flex-col items-center md:items-start">
+              <div className="w-24 h-24 bg-[rgb(0_168_144)]/85 text-white rounded-2xl grid place-items-center text-4xl font-extrabold shadow-lg">?</div>
+              <h4 className="mt-4 text-2xl font-bold text-gray-900">Preguntas<br/>frecuentes</h4>
             </div>
-            
-            {/* Información adicional */}
-            <div className="mt-8 grid md:grid-cols-2 gap-6">
-              <div className="card p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Métodos de Pago</h3>
-                <ul className="space-y-2 text-gray-600">
-                  <li>• Transferencia bancaria</li>
-                  <li>• Pago con tarjeta</li>
-                  <li>• Pago en efectivo</li>
-                  <li>• Débito automático</li>
-                </ul>
-              </div>
-              
-              <div className="card p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Horarios de Atención</h3>
-                <div className="space-y-2 text-gray-600">
-                  <div className="flex justify-between">
-                    <span>Lunes - Viernes</span>
-                    <span>8:00 AM - 6:00 PM</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Sábados</span>
-                    <span>9:00 AM - 2:00 PM</span>
+            <div className="space-y-4">
+              {faqs.map((f, idx) => (
+                <div key={f.q} className="border-b border-[rgb(0_168_144)]/40 pb-3">
+                  <button
+                    onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                    className="w-full flex items-center justify-between text-left text-gray-900 py-3"
+                  >
+                    <span className="font-medium">{f.q}</span>
+                    <span className={`ml-3 text-[rgb(0_168_144)] text-xl transition-transform ${openFaq===idx ? 'rotate-45' : ''}`}>+</span>
+                  </button>
+                  <div className={`overflow-hidden transition-all duration-300 ${openFaq===idx ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
+                    <p className="text-gray-600 pl-6 pr-2 pb-2">{f.a}</p>
                   </div>
                 </div>
-              </div>
-            </div>
-            
-            {/* Contacto de soporte */}
-            <div className="mt-8 text-center">
-              <p className="text-gray-600 mb-4">¿Necesitas ayuda con tu pago?</p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="tel:+5711234567" className="btn btn-outline">
-                  Llamar: +57 (1) 123-4567
-                </a>
-                <a href="mailto:pagos@kinku.co" className="btn btn-outline">
-                  Email: pagos@kinku.co
-                </a>
-              </div>
+              ))}
             </div>
           </div>
         </div>
