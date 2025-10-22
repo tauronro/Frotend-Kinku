@@ -69,14 +69,14 @@ export const Header = () => {
       </div> */}
 
       {/* Main Navigation */}
-      <nav className="container mx-auto px-4 py-4">
+      <nav className="container mx-auto px-3 py-1 md:px-4 md:py-3">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
             <img 
               src="/logo/nuevo-logo-kinku.webp" 
               alt="Logo Kinku" 
-              className={`w-20 h-20 object-contain ${isTransparent ? 'drop-shadow' : ''}`}
+              className={`w-16 h-16 object-contain transform scale-150 origin-center ${isTransparent ? 'drop-shadow' : ''}`}
             />
           </Link>
           

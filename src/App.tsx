@@ -9,6 +9,7 @@ import { ProjectOsaka } from './pages/ProjectOsaka'
 import { Blog } from './pages/Blog'
 import { Contact } from './pages/Contact'
 import { PaymentPortal } from './pages/PaymentPortal'
+import { ProjectPekin } from './pages/ProjectPekin'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/proyectos" element={<Projects />} />
           <Route path="/proyecto-kioto" element={<ProjectKioto />} />
           <Route path="/proyecto-osaka" element={<ProjectOsaka />} />
+          <Route path="/proyecto-pekin" element={<ProjectPekin />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/contacto" element={<Contact />} />
           <Route path="/portal-pagos" element={<PaymentPortal />} />

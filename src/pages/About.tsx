@@ -1,7 +1,7 @@
 import { PageBanner } from '../components/common/PageBanner'
-import { AboutIntro } from '../components/about/AboutIntro'
+// import { AboutIntro } from '../components/about/AboutIntro'
 import { AboutExpertise } from '../components/about/AboutExpertise'
-import { AboutValues } from '../components/about/AboutValues'
+// import { AboutValues } from '../components/about/AboutValues'
 
 
 export const About = () => {
@@ -10,12 +10,13 @@ export const About = () => {
       <PageBanner 
         title="Sobre Kinku"
         subtitle="Construimos hogares con calidad, diseño y respaldo. Conoce nuestra historia y lo que nos mueve."
+        size="sm"
       />
       
       
       <AboutExpertise />
-      <AboutValues />
-      <AboutIntro />
+      {/* <AboutValues /> */}
+      {/* <AboutIntro /> */}
     </div>
   )
 }
