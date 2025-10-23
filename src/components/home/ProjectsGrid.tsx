@@ -31,7 +31,7 @@ export const ProjectsGrid = () => {
       address: 'Calle 59 #17-43, Bogotá',
       description: 'Apartamentos y apartaestudios con acabados de primera calidad.',
       href: '/proyecto-kioto',
-      status: 'ENTREGADO'
+      status: 'DISPONIBLE'
     },
     {
       id: 3,
@@ -87,12 +87,17 @@ export const ProjectsGrid = () => {
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                    <div className="absolute top-4 left-4">
+                    <div className="absolute top-4 left-4 flex items-center gap-2">
                       <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
                         project.status === 'DISPONIBLE' ? 'bg-primary-500 text-white' : 'bg-gray-700 text-white'
                       }`} aria-label={`Estado: ${project.status.toLowerCase()}`}>
                         {project.status}
                       </span>
+                      {project.name === 'Proyecto Kioto' && (
+                        <span className="px-3 py-1 rounded-full text-xs font-semibold text-white" style={{ backgroundColor: '#BF0442' }}>
+                          ÚLTIMAS UNIDADES
+                        </span>
+                      )}
                     </div>
                   </div>
                   <div className="p-6 flex flex-col flex-1">

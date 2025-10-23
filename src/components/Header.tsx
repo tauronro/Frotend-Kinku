@@ -105,7 +105,7 @@ export const Header = () => {
                 <div className="py-2">
                   <Link to="/proyecto-kioto" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Proyecto Kioto</Link>
                   <Link to="/proyecto-osaka" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Proyecto Osaka</Link>
-                  <Link to="/proyectos" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Todos los Proyectos</Link>
+                  <Link to="/proyecto-pekin" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Proyecto Pekin</Link>
                 </div>
               </div>
             </div>
