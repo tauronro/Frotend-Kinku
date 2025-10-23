@@ -12,6 +12,7 @@ import { PaymentPortal } from './pages/PaymentPortal'
 import PaymentPortalKioto from './pages/PaymentPortalKioto'
 import PaymentPortalMetriku from './pages/PaymentPortalMetriku'
 import Checkout from './pages/Checkout'
+import Sostenibilidad from './pages/Sostenibilidad'
 import { ProjectPekin } from './pages/ProjectPekin'
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
           <Route path="/pago-kioto" element={<PaymentPortalKioto />} />
           <Route path="/pago-metriku" element={<PaymentPortalMetriku />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/sostenibilidad" element={<Sostenibilidad />} />
         </Routes>
         <Footer />
       </div>

@@ -110,14 +110,22 @@ export const Header = () => {
               </div>
             </div>
             
-            <Link 
-              to="/nosotros" 
-              className={`nav-link transition-colors flex items-center ${
-                isActive('/nosotros') ? 'text-primary-500' : linkBase
-              }`}
-            >
-              Nosotros <span className="ml-1">+</span>
-            </Link>
+            <div className="relative group">
+              <Link 
+                to="/nosotros" 
+                className={`nav-link transition-colors flex items-center ${
+                  isActive('/nosotros') ? 'text-primary-500' : linkBase
+                }`}
+              >
+                Nosotros <span className="ml-1">+</span>
+              </Link>
+              <div className="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                <div className="py-2">
+                  <Link to="/nosotros" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Quiénes Somos</Link>
+                  <Link to="/sostenibilidad" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Sostenibilidad</Link>
+                </div>
+              </div>
+            </div>
             
             <div className="relative group">
               <Link 
