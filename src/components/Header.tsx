@@ -77,7 +77,7 @@ export const Header = () => {
             <img 
               src="/logo/nuevo-logo-kinku.webp" 
               alt="Logo Kinku" 
-              className={`w-16 h-16 object-contain transform scale-150 origin-center ${isTransparent ? 'drop-shadow' : ''}`}
+              className={`w-16 h-16 ml-2 object-contain transform scale-150 origin-center ${isTransparent ? 'drop-shadow' : ''}`}
             />
           </Link>
           

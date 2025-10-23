@@ -90,11 +90,28 @@ export const Blog = () => {
             const goPrev = () => setActiveImageIndex((i) => (i - 1 + total) % total)
             const goNext = () => setActiveImageIndex((i) => (i + 1) % total)
             return (
-              <div className="fixed inset-0 z-50 flex items-center justify-center">
+              <div
+                className="fixed inset-0 z-50 flex items-center justify-center px-4"
+                onKeyDown={(e) => { if (e.key === 'Escape') setActivePostId(null) }}
+              >
                 {/* backdrop */}
                 <div className="absolute inset-0 bg-black/60" onClick={() => setActivePostId(null)}></div>
                 {/* dialog */}
-                <div className="relative z-10 bg-white rounded-2xl shadow-2xl max-w-6xl w-[96%] md:w-[1100px] overflow-hidden">
+                <div
+                  className="relative z-10 bg-white rounded-2xl shadow-2xl w-full max-w-6xl mx-auto max-h-[90vh] md:max-h-[85vh] overflow-auto focus:outline-none"
+                  role="dialog"
+                  aria-modal="true"
+                  aria-labelledby="blog-modal-title"
+                  tabIndex={-1}
+                >
+                  <button
+                    onClick={() => setActivePostId(null)}
+                    aria-label="Cerrar"
+                    className="absolute top-2 right-2 z-10 w-10 h-10 rounded-full bg-white/90 hover:bg-white text-gray-700 shadow grid place-items-center"
+                    autoFocus
+                  >
+                    ×
+                  </button>
                   <div className="md:flex">
                     {/* Carrusel */}
                     <div className="md:w-3/5 relative bg-black/5">
@@ -103,14 +120,14 @@ export const Blog = () => {
                         {/* Controles */}
                         {total > 1 && (
                           <>
-                            <button onClick={goPrev} aria-label="Anterior" className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full w-9 h-9 grid place-items-center shadow">‹</button>
-                            <button onClick={goNext} aria-label="Siguiente" className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full w-9 h-9 grid place-items-center shadow">›</button>
+                            <button onClick={goPrev} aria-label="Anterior" className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 rounded-full w-10 h-10 grid place-items-center shadow">‹</button>
+                            <button onClick={goNext} aria-label="Siguiente" className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 rounded-full w-10 h-10 grid place-items-center shadow">›</button>
                           </>
                         )}
                       </div>
                       {/* Thumbnails */}
                       {total > 1 && (
-                        <div className="flex gap-2 p-3 overflow-x-auto bg-white">
+                        <div className="flex gap-2 p-4 overflow-x-auto bg-white">
                           {images.map((src, idx) => (
                             <button key={src+idx} onClick={() => setActiveImageIndex(idx)} className={`h-14 w-20 rounded-md overflow-hidden ring-2 ${idx===activeImageIndex ? 'ring-[rgb(0_168_144)]' : 'ring-transparent'}`}>
                               <img src={src} alt={`thumb ${idx+1}`} className="w-full h-full object-cover" />
@@ -122,7 +139,7 @@ export const Blog = () => {
                     {/* Contenido */}
                     <div className="md:w-2/5 p-6">
                       <div className="text-sm font-medium text-[rgb(0_168_144)]">{post.category}</div>
-                      <h3 className="mt-2 text-3xl font-bold text-gray-900 leading-tight">{post.title}</h3>
+                      <h3 id="blog-modal-title" className="mt-2 text-3xl font-bold text-gray-900 leading-tight">{post.title}</h3>
                       <div className="mt-2 flex items-center gap-3 text-gray-500 text-sm">
                         <span>{post.date}</span>
                         <span className="inline-block h-[3px] w-10 bg-[rgb(0_168_144)] rounded-full"></span>
@@ -139,7 +156,6 @@ export const Blog = () => {
                       </ul>
                       <div className="mt-6 flex justify-end gap-3">
                         <button onClick={() => setActivePostId(null)} className="inline-flex items-center px-4 py-2 rounded-md font-semibold border border-gray-300 text-gray-700 hover:bg-gray-50">Cerrar</button>
-                        <button className="inline-flex items-center px-4 py-2 rounded-md font-semibold bg-[rgb(0_168_144)] text-white hover:opacity-90">Ir al artículo</button>
                       </div>
                     </div>
                   </div>

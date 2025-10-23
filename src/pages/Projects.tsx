@@ -60,13 +60,13 @@ export const Projects = () => {
       />
 
       {/* Secciones a pantalla completa con animación y superposición (sticky stacking) */}
-      <div>
+      <div className="mt-6 md:mt-10">
         {projects.map((p, i) => (
           <section
             key={p.id}
             ref={(el) => { if (el) sectionsRef.current[i] = el }}
             style={{ zIndex: i + 1 }}
-            className="sticky top-0 h-screen bg-white flex items-center opacity-0 translate-y-8 transition-all duration-700 ease-out relative"
+            className="relative bg-white flex items-center opacity-0 translate-y-8 transition-all duration-700 ease-out lg:sticky lg:top-0 lg:h-screen py-8"
           >
             {/* Fondo con patrón de líneas */}
             <div className="absolute inset-0 opacity-10 pointer-events-none">
@@ -79,17 +79,17 @@ export const Projects = () => {
               ></div>
             </div>
 
-            <div className="container relative">
+            <div className="container px-4 relative">
               <div className="grid grid-cols-12 gap-6 items-center">
                 <div className="col-span-12 lg:col-span-10">
                   <img
                     src={p.image}
                     alt={p.title}
                     loading="lazy"
-                    className="w-full h-[70vh] lg:h-[80vh] object-cover rounded-xl"
+                    className="w-full h-[55vh] md:h-[60vh] lg:h-[80vh] object-cover rounded-xl"
                   />
                 </div>
-                <div className="col-span-12 lg:col-span-2 h-[70vh] lg:h-[80vh] flex">
+                <div className="col-span-12 lg:col-span-2 h-auto lg:h-[80vh] flex">
                   <div className="bg-white rounded-xl shadow-xl p-6 relative z-10 h-full w-full flex flex-col justify-between overflow-hidden">
                     <h3 className="text-3xl font-bold text-gray-900 mb-4">{p.title}</h3>
                     <p className="text-gray-600 mb-6">{p.excerpt}</p>
