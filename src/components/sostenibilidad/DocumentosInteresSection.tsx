@@ -47,7 +47,7 @@ export const DocumentosInteresSection = () => {
     <section className="section-padding bg-white">
       <div className="container">
         <div className="text-center mb-8">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900">Documentos de interés</h2>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900">Certificados de interés</h2>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
