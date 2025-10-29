@@ -11,27 +11,43 @@ type Slide = {
 const slides: Slide[] = [
   {
     id: 1,
-    title: 'Nuestra Visión',
+    title: 'Nuestra misión',
     description:
-      'Crear espacios que eleven la vida de nuestros clientes a través de diseño, calidad y confort duradero.',
+      'Impulsar nuestra presencia en Colombia con un portafolio integral e innovador, bajo altos estándares de calidad y con responsabilidad social y ambiental, para crear valor real a quienes confían en Kinku.',
     bullets: [
-      { label: 'Diseño Personalizado', text: 'Soluciones pensadas para tu estilo de vida y necesidades.' },
-      { label: 'Confort y Estilo', text: 'Ambientes modernos con materiales de alto desempeño.' },
-      { label: 'Experiencia', text: 'Acompañamiento experto de punta a punta del proyecto.' },
+      { label: 'Diseño', text: '' },
+      { label: 'Confort y Estilo', text: 'Perfecta armonía, como una obra de arte habitable.' },
+      { label: 'Experiencia', text: 'Acompañamiento experto y asesoría integral, de inicio a fin.' },
     ],
     image: '/img/1.webp',
   },
   {
     id: 2,
-    title: 'Nuestro Propósito',
+    title: 'Nuestra visión',
     description:
-      'Desarrollar proyectos eficientes, sostenibles y con respaldo para que tu inversión sea segura y valiosa.',
+      'Para 2027, ser la empresa líder en el mercado nacional, reconocida por proyectos innovadores, servicio excepcional, un gran clima laboral y un portafolio integral comprometido con el medio ambiente.',
     bullets: [
-      { label: 'Eficiencia', text: 'Procesos optimizados para entregar a tiempo y con calidad.' },
-      { label: 'Sostenibilidad', text: 'Buenas prácticas y materiales responsables.' },
-      { label: 'Respaldo', text: 'Transparencia y comunicación continua con cada cliente.' },
+      { label: 'Eficiencia', text: 'Optimización en cada paso para cumplir con excelencia y a tiempo.' },
+      { label: 'Sostenibilidad', text: 'Construimos con conciencia, cuidando cada recurso y detalle.' },
+      { label: 'Respaldo', text: 'Transparencia, compromiso y apoyo en todo el proceso.' },
     ],
     image: '/img/imagen-medio-kunku.webp',
+  },
+  {
+    id: 3,
+    title: 'Nuestros valores',
+    description:
+      'Actuamos con integridad y excelencia para construir confianza duradera.',
+    bullets: [
+      { label: 'Trabajo en equipo', text: 'Colaboramos para lograr resultados superiores.' },
+      { label: 'Credibilidad', text: 'Cumplimos lo que prometemos.' },
+      { label: 'Respeto', text: 'Valoramos a las personas y sus ideas.' },
+      { label: 'Excelencia', text: 'Buscamos el mejor estándar en cada detalle.' },
+      // { label: 'Responsabilidad social y ambiental', text: 'Decisiones que cuidan a la comunidad y al entorno.' },
+      // { label: 'Compromiso', text: 'Constancia y enfoque hasta el objetivo.' },
+      // { label: 'Confianza', text: 'Relaciones transparentes y de largo plazo.' },
+    ],
+    image: '/img/1.webp',
   },
 ]
 
@@ -99,7 +115,7 @@ export const AboutVisionSlider = () => {
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold text-gray-900">{b.label}</h3>
-                      <p className="text-gray-600 mt-1">{b.text}</p>
+                      {b.text && <p className="text-gray-600 mt-1">{b.text}</p>}
                     </div>
                   </div>
                 </li>

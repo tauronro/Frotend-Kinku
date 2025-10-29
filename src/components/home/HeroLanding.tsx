@@ -37,13 +37,13 @@ export const HeroLanding = () => {
 
       <div className="container mx-auto px-4 relative z-10 py-32 md:py-44 lg:py-56 text-center">
         <h1 ref={titleRef} className="text-white font-extralight leading-tight tracking-tight text-4xl md:text-6xl lg:text-7xl opacity-0 translate-y-4 transition-all duration-700 ease-out">
-          Construimos hogares para tu vida
+          Hogares que inspiran,
           <br className="hidden md:block"/>
-          <span className="block">Calidad, diseño y respaldo Kinku</span>
+          <span className="block">proyectos que perduran.</span>
         </h1>
         <p ref={descRef} className="mt-6 text-white/70 max-w-3xl mx-auto text-xs md:text-sm opacity-0 translate-y-4 transition-all duration-700 ease-out">
-          Proyectos de vivienda en Bogotá con acabados modernos, ubicación estratégica y
-          acompañamiento experto en cada etapa. Inversión segura con la solidez de Kinku.
+          En Bogotá, Kinku crea espacios con diseño moderno, ubicación privilegiada y respaldo confiable,
+          pensados para brindarte una inversión segura y una vida con estilo.
         </p>
         <div ref={ctaRef} className="mt-10 opacity-0 translate-y-4 transition-all duration-700 ease-out">
           <Link to="/proyectos" className="btn border border-white/30 text-white hover:bg-white hover:text-gray-900">

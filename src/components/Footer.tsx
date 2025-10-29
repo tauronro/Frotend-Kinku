@@ -59,6 +59,27 @@ export const Footer = () => {
           </div>
         </div>
         
+        
+        {/* Botones centrales */}
+        <div className="mt-8 flex justify-center gap-4">
+          <a
+            href="https://wahhu.com/login"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center px-5 py-3 rounded-lg font-semibold border border-white text-white hover:bg-white hover:text-gray-900 transition-colors"
+          >
+            Servicios post venta
+          </a>
+          <a
+            href="https://kinku.buk.co/trabaja-con-nosotros"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center px-5 py-3 rounded-lg font-semibold border border-white text-white hover:bg-white hover:text-gray-900 transition-colors"
+          >
+            Trabaja con nosotros
+          </a>
+        </div>
+        
         <div className="border-t border-gray-800 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
