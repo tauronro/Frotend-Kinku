@@ -84,7 +84,7 @@ export const ProjectDetail = ({ project }: Props) => {
         window.clearInterval(autoplayIntervalRef.current)
       }
     }
-  }, [project.gallery, isModalOpen])
+  }, [project.gallery?.length, isModalOpen])
 
   const handleImageClick = (index: number) => {
     setSelectedImageIndex(index)
@@ -137,7 +137,7 @@ export const ProjectDetail = ({ project }: Props) => {
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [isModalOpen, project.gallery])
+  }, [isModalOpen, project.gallery?.length])
 
   const tabs: { id: TabId; label: string }[] = [
     { id: 'proyecto', label: 'Proyecto' },
@@ -261,8 +261,27 @@ export const ProjectDetail = ({ project }: Props) => {
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">
             Tipos de Apartamentos
           </h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            {project.apartmentTypes.map((type) => (
+          {project.apartmentTypes.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gray-100 mb-6">
+                <svg className="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">No hay unidades disponibles</h3>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-6">
+                Todas las unidades de este proyecto han sido entregadas exitosamente. Si estás interesado en información sobre futuros proyectos o proyectos similares, no dudes en contactarnos.
+              </p>
+              <Link
+                to="/contacto"
+                className="inline-flex items-center justify-center px-6 py-3 rounded-md font-semibold bg-[rgb(0_168_144)] text-white hover:opacity-90 transition-colors"
+              >
+                Contactar
+              </Link>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 gap-8">
+              {project.apartmentTypes.map((type) => (
               <div
                 key={type.id}
                 className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
@@ -273,6 +292,11 @@ export const ProjectDetail = ({ project }: Props) => {
                     alt={type.name}
                     className="w-full h-full object-cover"
                   />
+                  <div className="absolute top-4 left-4">
+                    <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[rgb(0_168_144)] text-white">
+                      Disponible
+                    </span>
+                  </div>
                 </div>
                 <div className="p-6">
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">{type.name}</h3>
@@ -286,6 +310,13 @@ export const ProjectDetail = ({ project }: Props) => {
                       {type.area.min} - {type.area.max} {type.area.unit}
                     </span>
                   </div>
+                  {type.price && (
+                    <div className="mb-4">
+                      <span className="text-2xl font-bold text-gray-900">
+                        ${type.price.toLocaleString('es-CO')}
+                      </span>
+                    </div>
+                  )}
                   <p className="text-gray-600 mb-4">{type.description}</p>
                   <ul className="space-y-2 mb-6">
                     {type.features.map((feature, idx) => (
@@ -312,7 +343,8 @@ export const ProjectDetail = ({ project }: Props) => {
                 </div>
               </div>
             ))}
-          </div>
+            </div>
+          )}
         </div>
       </section>
 

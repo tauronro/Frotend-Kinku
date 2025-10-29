@@ -4,6 +4,7 @@ import { Financing } from "../components/home/Financing";
 import { ProjectsGrid } from "../components/home/ProjectsGrid";
 import { Metriku } from "../components/home/Metriku";
 import { Testimonials } from "../components/home/Testimonials";
+import { CommercialAllies } from "../components/home/CommercialAllies";
 import AboutVisionSlider from "../components/about/AboutVisionSlider";
 
 export const Home = () => {
@@ -51,6 +52,10 @@ export const Home = () => {
 
       <div className="reveal opacity-0 translate-y-8 transition-all duration-700 ease-out delay-100" data-anim="up">
         <Testimonials />
+      </div>
+
+      <div className="reveal opacity-0 translate-y-8 transition-all duration-700 ease-out delay-100" data-anim="up">
+        <CommercialAllies />
       </div>
 
       {/* <FinalCta /> */}

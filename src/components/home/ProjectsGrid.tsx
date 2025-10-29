@@ -9,6 +9,7 @@ type ProjectCard = {
   description: string
   href: string
   status: 'DISPONIBLE' | 'ENTREGADO'
+  external?: boolean
 }
 
 export const ProjectsGrid = () => {
@@ -39,8 +40,9 @@ export const ProjectsGrid = () => {
       image: '/img/banner-kinku.webp',
       address: 'Calle 59 #17-43, Bogotá',
       description: 'Disponibilidad actual con opciones flexibles de inversión.',
-      href: '/proyecto-pekin',
-      status: 'DISPONIBLE'
+      href: 'https://proyectopekin.co',
+      status: 'DISPONIBLE',
+      external: true
     }
   ]
 
@@ -106,13 +108,25 @@ export const ProjectsGrid = () => {
                     </h3>
                     <p className="text-sm text-gray-600 mb-4 line-clamp-2">{project.description}</p>
                     <div className="flex items-center gap-3 mt-auto">
-                      <Link
-                        to={project.href}
-                        className="inline-flex items-center justify-center px-4 py-2 rounded-md font-semibold bg-[rgb(0_168_144)] text-white hover:opacity-90 transition-colors"
-                        aria-label={`Ver ${project.name}`}
-                      >
-                        Ver proyecto
-                      </Link>
+                      {project.external ? (
+                        <a
+                          href={project.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center justify-center px-4 py-2 rounded-md font-semibold bg-[rgb(0_168_144)] text-white hover:opacity-90 transition-colors"
+                          aria-label={`Ver ${project.name}`}
+                        >
+                          Ver proyecto
+                        </a>
+                      ) : (
+                        <Link
+                          to={project.href}
+                          className="inline-flex items-center justify-center px-4 py-2 rounded-md font-semibold bg-[rgb(0_168_144)] text-white hover:opacity-90 transition-colors"
+                          aria-label={`Ver ${project.name}`}
+                        >
+                          Ver proyecto
+                        </Link>
+                      )}
                       <a
                         href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(project.address)}`}
                         target="_blank"
