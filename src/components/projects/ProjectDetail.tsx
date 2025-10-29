@@ -17,6 +17,10 @@ export const ProjectDetail = ({ project }: Props) => {
     phone: '',
     message: '',
   })
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0)
+  const autoplayIntervalRef = useRef<number | null>(null)
   const sectionsRef = useRef<{ [key: string]: HTMLElement | null }>({})
 
   useEffect(() => {
@@ -66,6 +70,75 @@ export const ProjectDetail = ({ project }: Props) => {
     setContactForm({ ...contactForm, [e.target.name]: e.target.value })
   }
 
+  // Galería - Autoplay del carrusel
+  useEffect(() => {
+    if (!project.gallery || project.gallery.length === 0) return
+    if (isModalOpen) return // Detener autoplay cuando el modal está abierto
+
+    autoplayIntervalRef.current = window.setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % project.gallery.length)
+    }, 4000) // Cambia cada 4 segundos
+
+    return () => {
+      if (autoplayIntervalRef.current) {
+        window.clearInterval(autoplayIntervalRef.current)
+      }
+    }
+  }, [project.gallery, isModalOpen])
+
+  const handleImageClick = (index: number) => {
+    setSelectedImageIndex(index)
+    setIsModalOpen(true)
+    // Detener autoplay
+    if (autoplayIntervalRef.current) {
+      window.clearInterval(autoplayIntervalRef.current)
+    }
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false)
+  }
+
+  const nextImage = () => {
+    if (!project.gallery) return
+    setCurrentImageIndex((prev) => (prev + 1) % project.gallery.length)
+  }
+
+  const prevImage = () => {
+    if (!project.gallery) return
+    setCurrentImageIndex((prev) => (prev - 1 + project.gallery.length) % project.gallery.length)
+  }
+
+  const nextModalImage = () => {
+    if (!project.gallery) return
+    setSelectedImageIndex((prev) => (prev + 1) % project.gallery.length)
+  }
+
+  const prevModalImage = () => {
+    if (!project.gallery) return
+    setSelectedImageIndex((prev) => (prev - 1 + project.gallery.length) % project.gallery.length)
+  }
+
+  // Manejar teclas del teclado en el modal
+  useEffect(() => {
+    if (!isModalOpen) return
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        closeModal()
+      } else if (e.key === 'ArrowLeft') {
+        if (!project.gallery) return
+        setSelectedImageIndex((prev) => (prev - 1 + project.gallery.length) % project.gallery.length)
+      } else if (e.key === 'ArrowRight') {
+        if (!project.gallery) return
+        setSelectedImageIndex((prev) => (prev + 1) % project.gallery.length)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [isModalOpen, project.gallery])
+
   const tabs: { id: TabId; label: string }[] = [
     { id: 'proyecto', label: 'Proyecto' },
     { id: 'tipos', label: 'Tipos de apartamentos' },
@@ -101,7 +174,7 @@ export const ProjectDetail = ({ project }: Props) => {
       {/* Sección: Proyecto */}
       <section
         id="proyecto"
-        ref={(el) => (sectionsRef.current.proyecto = el)}
+        ref={(el) => { sectionsRef.current.proyecto = el }}
         className="section-padding bg-white"
       >
         <div className="container">
@@ -181,7 +254,7 @@ export const ProjectDetail = ({ project }: Props) => {
       {/* Sección: Tipos de apartamentos */}
       <section
         id="tipos"
-        ref={(el) => (sectionsRef.current.tipos = el)}
+        ref={(el) => { sectionsRef.current.tipos = el }}
         className="section-padding bg-gray-50"
       >
         <div className="container">
@@ -246,7 +319,7 @@ export const ProjectDetail = ({ project }: Props) => {
       {/* Sección: Zonas comunes */}
       <section
         id="zonas"
-        ref={(el) => (sectionsRef.current.zonas = el)}
+        ref={(el) => { sectionsRef.current.zonas = el }}
         className="section-padding bg-white"
       >
         <div className="container">
@@ -285,49 +358,169 @@ export const ProjectDetail = ({ project }: Props) => {
         </div>
       </section>
 
-      {/* Sección: Galería */}
+      {/* Sección: Galería con Carrusel */}
       {project.gallery && project.gallery.length > 0 && (
         <section className="section-padding bg-gray-50">
           <div className="container">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">
               Galería del Proyecto
             </h2>
-            <div className="grid grid-cols-12 gap-4">
-              <div className="col-span-12 lg:col-span-7 h-72 md:h-96 rounded-2xl overflow-hidden">
+            
+            {/* Carrusel principal */}
+            <div className="relative max-w-6xl mx-auto mb-6">
+              <div className="relative h-80 md:h-[500px] rounded-2xl overflow-hidden shadow-2xl group">
                 <img
-                  src={project.gallery[0] || '/img/1.webp'}
-                  alt={`${project.title} principal`}
-                  loading="lazy"
-                  className="w-full h-full object-cover"
+                  src={project.gallery[currentImageIndex] || '/img/1.webp'}
+                  alt={`${project.title} ${currentImageIndex + 1}`}
+                  className="w-full h-full object-cover cursor-pointer transition-opacity duration-500"
+                  onClick={() => handleImageClick(currentImageIndex)}
                 />
-              </div>
-              <div className="col-span-12 lg:col-span-5 h-72 md:h-96 rounded-2xl overflow-hidden">
-                <img
-                  src={project.gallery[1] || '/img/imagen-medio-kunku.webp'}
-                  alt={`${project.title} secundaria`}
-                  loading="lazy"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              {project.gallery.slice(2, 6).map((img, idx) => (
-                <div key={idx} className="col-span-6 md:col-span-3 h-56 rounded-2xl overflow-hidden">
-                  <img src={img} alt={`${project.title} ${idx + 3}`} loading="lazy" className="w-full h-full object-cover" />
+                
+                {/* Overlay con botones */}
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-between p-4">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      prevImage()
+                    }}
+                    className="opacity-0 group-hover:opacity-100 transition-opacity w-12 h-12 rounded-full bg-white/90 hover:bg-white flex items-center justify-center shadow-lg"
+                    aria-label="Imagen anterior"
+                  >
+                    <svg className="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                  </button>
+                  
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      handleImageClick(currentImageIndex)
+                    }}
+                    className="opacity-0 group-hover:opacity-100 transition-opacity px-4 py-2 rounded-lg bg-white/90 hover:bg-white text-gray-900 font-medium shadow-lg"
+                  >
+                    Ver más grande
+                  </button>
+                  
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      nextImage()
+                    }}
+                    className="opacity-0 group-hover:opacity-100 transition-opacity w-12 h-12 rounded-full bg-white/90 hover:bg-white flex items-center justify-center shadow-lg"
+                    aria-label="Imagen siguiente"
+                  >
+                    <svg className="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                  </button>
                 </div>
-              ))}
-              {project.gallery.slice(6, 8).map((img, idx) => (
-                <div key={idx + 6} className="col-span-12 md:col-span-6 h-64 rounded-2xl overflow-hidden">
-                  <img src={img} alt={`${project.title} ${idx + 7}`} loading="lazy" className="w-full h-full object-cover" />
-                </div>
-              ))}
+              </div>
+
+              {/* Indicadores */}
+              <div className="flex justify-center gap-2 mt-4">
+                {project.gallery.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setCurrentImageIndex(idx)}
+                    className={`h-2 rounded-full transition-all ${
+                      idx === currentImageIndex ? 'w-8 bg-primary-600' : 'w-2 bg-gray-300 hover:bg-gray-400'
+                    }`}
+                    aria-label={`Ir a imagen ${idx + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Thumbnails */}
+            <div className="max-w-6xl mx-auto">
+              <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2">
+                {project.gallery.map((img, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setCurrentImageIndex(idx)}
+                    className={`relative aspect-square rounded-lg overflow-hidden border-2 transition-all ${
+                      idx === currentImageIndex
+                        ? 'border-primary-600 scale-105 shadow-lg'
+                        : 'border-transparent hover:border-gray-300'
+                    }`}
+                  >
+                    <img
+                      src={img}
+                      alt={`${project.title} thumbnail ${idx + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
+
+          {/* Modal/Lightbox */}
+          {isModalOpen && (
+            <div
+              className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
+              onClick={closeModal}
+            >
+              <button
+                onClick={closeModal}
+                className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
+                aria-label="Cerrar"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
+
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  prevModalImage()
+                }}
+                className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
+                aria-label="Imagen anterior"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+              </button>
+
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  nextModalImage()
+                }}
+                className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
+                aria-label="Imagen siguiente"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+              </button>
+
+              <div
+                className="max-w-7xl max-h-[90vh] flex items-center justify-center"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <img
+                  src={project.gallery[selectedImageIndex]}
+                  alt={`${project.title} ${selectedImageIndex + 1}`}
+                  className="max-w-full max-h-[90vh] object-contain rounded-lg"
+                />
+              </div>
+
+              {/* Contador de imágenes */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm text-white text-sm">
+                {selectedImageIndex + 1} / {project.gallery.length}
+              </div>
+            </div>
+          )}
         </section>
       )}
 
       {/* Sección: Contacto */}
       <section
         id="contacto"
-        ref={(el) => (sectionsRef.current.contacto = el)}
+        ref={(el) => { sectionsRef.current.contacto = el }}
         className="section-padding bg-white"
       >
         <div className="container">
