@@ -24,6 +24,27 @@ export const ProjectDetail = ({ project }: Props) => {
   const sectionsRef = useRef<{ [key: string]: HTMLElement | null }>({})
   const [apartmentImageIndexById, setApartmentImageIndexById] = useState<Record<string, number>>({})
 
+  // Util: resolver imágenes externas (Drive) a un proxy CDN público para evitar CORS
+  const resolveExternalImage = (src: string | undefined): string => {
+    if (!src) return '/img/1.webp'
+    try {
+      const u = new URL(src, window.location.origin)
+      const isDrive = u.hostname.includes('drive.google.com')
+      if (isDrive) {
+        const id =
+          u.searchParams.get('id') ||
+          (u.pathname.includes('/d/') ? u.pathname.split('/d/')[1]?.split('/')[0] : '')
+        if (id) {
+          // images.weserv.nl actúa como proxy de imágenes y evita CORS
+          return `https://images.weserv.nl/?url=ssl:drive.google.com/uc?id=${id}&export=download&w=2000&h=2000&fit=inside`
+        }
+      }
+    } catch {
+      // Ignorar parsing errors y devolver src original
+    }
+    return src
+  }
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -314,8 +335,12 @@ export const ProjectDetail = ({ project }: Props) => {
                   {/* Mini carrusel por unidad */}
                   <div className="relative mb-4 rounded-xl overflow-hidden">
                     <img
-                      src={type.images[(apartmentImageIndexById[type.id] ?? 0) % (type.images.length || 1)] || '/img/1.webp'}
+                      src={resolveExternalImage(type.images[(apartmentImageIndexById[type.id] ?? 0) % (type.images.length || 1)])}
                       alt={`${type.name} imagen`}
+                      onError={(e) => {
+                        const target = e.currentTarget as HTMLImageElement
+                        target.src = '/img/1.webp'
+                      }}
                       className="w-full h-60 object-cover"
                     />
                     {type.images.length > 1 && (
@@ -395,8 +420,12 @@ export const ProjectDetail = ({ project }: Props) => {
                           }`}
                         >
                           <img
-                            src={img}
+                            src={resolveExternalImage(img)}
                             alt={`${type.name} ${idx + 1}`}
+                            onError={(e) => {
+                              const target = e.currentTarget as HTMLImageElement
+                              target.src = '/img/1.webp'
+                            }}
                             className="w-full h-20 object-cover"
                           />
                         </button>
@@ -465,10 +494,14 @@ export const ProjectDetail = ({ project }: Props) => {
             <div className="relative max-w-6xl mx-auto mb-6">
               <div className="relative h-80 md:h-[500px] rounded-2xl overflow-hidden shadow-2xl group">
                 <img
-                  src={project.gallery[currentImageIndex] || '/img/1.webp'}
+                  src={resolveExternalImage(project.gallery[currentImageIndex])}
                   alt={`${project.title} ${currentImageIndex + 1}`}
                   className="w-full h-full object-cover cursor-pointer transition-opacity duration-500"
                   onClick={() => handleImageClick(currentImageIndex)}
+                  onError={(e) => {
+                    const target = e.currentTarget as HTMLImageElement
+                    target.src = '/img/1.webp'
+                  }}
                 />
                 
                 {/* Overlay con botones */}
@@ -540,9 +573,13 @@ export const ProjectDetail = ({ project }: Props) => {
                     }`}
                   >
                     <img
-                      src={img}
+                      src={resolveExternalImage(img)}
                       alt={`${project.title} thumbnail ${idx + 1}`}
                       className="w-full h-full object-cover"
+                      onError={(e) => {
+                        const target = e.currentTarget as HTMLImageElement
+                        target.src = '/img/1.webp'
+                      }}
                     />
                   </button>
                 ))}
@@ -597,9 +634,13 @@ export const ProjectDetail = ({ project }: Props) => {
                 onClick={(e) => e.stopPropagation()}
               >
                 <img
-                  src={project.gallery[selectedImageIndex]}
+                  src={resolveExternalImage(project.gallery[selectedImageIndex])}
                   alt={`${project.title} ${selectedImageIndex + 1}`}
                   className="max-w-full max-h-[90vh] object-contain rounded-lg"
+                  onError={(e) => {
+                    const target = e.currentTarget as HTMLImageElement
+                    target.src = '/img/1.webp'
+                  }}
                 />
               </div>
 
