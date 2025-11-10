@@ -22,6 +22,7 @@ export const ProjectDetail = ({ project }: Props) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0)
   const autoplayIntervalRef = useRef<number | null>(null)
   const sectionsRef = useRef<{ [key: string]: HTMLElement | null }>({})
+  const [apartmentImageIndexById, setApartmentImageIndexById] = useState<Record<string, number>>({})
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -286,7 +287,7 @@ export const ProjectDetail = ({ project }: Props) => {
                 key={type.id}
                 className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
               >
-                <div className="relative h-64 overflow-hidden">
+                {/* <div className="relative h-64 overflow-hidden">
                   <img
                     src={type.images[0] || '/img/1.webp'}
                     alt={type.name}
@@ -297,7 +298,7 @@ export const ProjectDetail = ({ project }: Props) => {
                       Disponible
                     </span>
                   </div>
-                </div>
+                </div> */}
                 <div className="p-6">
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">{type.name}</h3>
                   <div className="flex items-center gap-4 mb-4">
@@ -309,6 +310,59 @@ export const ProjectDetail = ({ project }: Props) => {
                     <span className="text-primary-600 font-semibold">
                       {type.area.min} - {type.area.max} {type.area.unit}
                     </span>
+                  </div>
+                  {/* Mini carrusel por unidad */}
+                  <div className="relative mb-4 rounded-xl overflow-hidden">
+                    <img
+                      src={type.images[(apartmentImageIndexById[type.id] ?? 0) % (type.images.length || 1)] || '/img/1.webp'}
+                      alt={`${type.name} imagen`}
+                      className="w-full h-60 object-cover"
+                    />
+                    {type.images.length > 1 && (
+                      <div className="absolute inset-0 flex items-center justify-between px-2">
+                        <button
+                          aria-label="Anterior"
+                          onClick={() =>
+                            setApartmentImageIndexById((prev) => ({
+                              ...prev,
+                              [type.id]:
+                                ((prev[type.id] ?? 0) - 1 + type.images.length) % type.images.length,
+                            }))
+                          }
+                          className="w-9 h-9 rounded-full bg-white/90 hover:bg-white text-gray-900 grid place-items-center shadow"
+                        >
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path>
+                          </svg>
+                        </button>
+                        <button
+                          aria-label="Siguiente"
+                          onClick={() =>
+                            setApartmentImageIndexById((prev) => ({
+                              ...prev,
+                              [type.id]: ((prev[type.id] ?? 0) + 1) % type.images.length,
+                            }))
+                          }
+                          className="w-9 h-9 rounded-full bg-white/90 hover:bg-white text-gray-900 grid place-items-center shadow"
+                        >
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
+                          </svg>
+                        </button>
+                      </div>
+                    )}
+                    {type.images.length > 1 && (
+                      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
+                        {type.images.map((_, idx) => (
+                          <span
+                            key={idx}
+                            className={`h-1.5 rounded-full transition-all ${
+                              (apartmentImageIndexById[type.id] ?? 0) === idx ? 'w-5 bg-primary-600' : 'w-2 bg-white/70'
+                            }`}
+                          />
+                        ))}
+                      </div>
+                    )}
                   </div>
                   {type.price && (
                     <div className="mb-4">
@@ -330,13 +384,22 @@ export const ProjectDetail = ({ project }: Props) => {
                   </ul>
                   {type.images.length > 1 && (
                     <div className="grid grid-cols-3 gap-2">
-                      {type.images.slice(1, 4).map((img, idx) => (
-                        <img
+                      {type.images.slice(0, 3).map((img, idx) => (
+                        <button
                           key={idx}
-                          src={img}
-                          alt={`${type.name} ${idx + 2}`}
-                          className="w-full h-20 object-cover rounded"
-                        />
+                          onClick={() =>
+                            setApartmentImageIndexById((prev) => ({ ...prev, [type.id]: idx }))
+                          }
+                          className={`rounded overflow-hidden border ${
+                            (apartmentImageIndexById[type.id] ?? 0) === idx ? 'border-primary-600' : 'border-transparent'
+                          }`}
+                        >
+                          <img
+                            src={img}
+                            alt={`${type.name} ${idx + 1}`}
+                            className="w-full h-20 object-cover"
+                          />
+                        </button>
                       ))}
                     </div>
                   )}

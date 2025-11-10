@@ -37,6 +37,16 @@ const allies: Ally[] = [
     name: 'Werg',
     logo: '/logo/werg-600x335.webp',
   },
+  {
+    id: 'metriku',
+    name: 'Metriku',
+    logo: '/logo/METRIKU-LOGO-1@2x-e1694532692267.webp',
+  },
+  {
+    id: 'bancolombia',
+    name: 'Bancolombia',
+    logo: '/logo/logoBancolombiaNegro.jpg',
+  },
 ]
 
 export const CommercialAllies = () => {

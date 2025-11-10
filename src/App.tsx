@@ -12,8 +12,11 @@ import { PaymentPortal } from './pages/PaymentPortal'
 import PaymentPortalKioto from './pages/PaymentPortalKioto'
 import PaymentPortalMetriku from './pages/PaymentPortalMetriku'
 import Checkout from './pages/Checkout'
+import CheckoutSummary from './pages/CheckoutSummary'
 import Sostenibilidad from './pages/Sostenibilidad'
 import { ProjectPekin } from './pages/ProjectPekin'
+import Politicas from './pages/Politicas'
+import Faqs from './pages/Faqs'
 
 function App() {
   return (
@@ -33,7 +36,10 @@ function App() {
           <Route path="/pago-kioto" element={<PaymentPortalKioto />} />
           <Route path="/pago-metriku" element={<PaymentPortalMetriku />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/checkout-resumen" element={<CheckoutSummary />} />
           <Route path="/sostenibilidad" element={<Sostenibilidad />} />
+          <Route path="/politicas" element={<Politicas />} />
+          <Route path="/faqs" element={<Faqs />} />
         </Routes>
         <Footer />
       </div>

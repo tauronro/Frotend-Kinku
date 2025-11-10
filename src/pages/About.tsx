@@ -14,10 +14,11 @@ export const About = () => {
         size="sm"
       />
       
-      <TeamMinds />
+      
       
       
       <AboutExpertise />
+      <TeamMinds />
       {/* <AboutValues /> */}
       {/* <AboutIntro /> */}
     </div>

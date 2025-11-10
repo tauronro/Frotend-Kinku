@@ -13,6 +13,8 @@ export type ApartmentType = {
   price?: number
 }
 
+
+
 export type CommonArea = {
   name: string
   description: string
@@ -66,7 +68,13 @@ export const projectsData: Record<string, ProjectData> = {
           unit: 'm²',
         },
         description: 'Últimas unidades disponibles. Apartamento de 2 habitaciones con acabados de primera calidad y excelente distribución.',
-        images: ['/img/1.webp', '/img/imagen-medio-kunku.webp'],
+        images: [
+          '/kioto/204/20.png',
+          '/kioto/204/21.png',
+          '/kioto/204/22.png',
+          '/kioto/204/23.png',
+          '/kioto/204/24.png',
+        ],
         price: 567240000,
         features: [
           '2 habitaciones',
@@ -91,7 +99,13 @@ export const projectsData: Record<string, ProjectData> = {
           unit: 'm²',
         },
         description: 'Apartaestudio con mezzanine, diseño inteligente y espacios optimizados para máximo aprovechamiento.',
-        images: ['/img/imagen-medio-kunku.webp', '/img/1.webp'],
+        images: [
+          '/kioto/608/DJI_20250829081927_0333_D.JPG',
+          '/kioto/608/DJI_20250829081918_0332_D.JPG',
+          '/kioto/608/DJI_20250829081733_0323_D.JPG',
+          '/kioto/608/DJI_20250829081604_0314_D.JPG',
+          '/kioto/608/DJI_20250829081632_0315_D.JPG',
+        ],
         price: 340240000,
         features: [
           '1 habitación con mezzanine',
@@ -114,7 +128,14 @@ export const projectsData: Record<string, ProjectData> = {
           unit: 'm²',
         },
         description: 'Apartaestudio con mezzanine, diseño inteligente y espacios optimizados para máximo aprovechamiento.',
-        images: ['/img/imagen-medio-kunku.webp', '/img/1.webp'],
+        images: [
+          '/kioto/609/DJI_20250829081733_0323_D.JPG',
+          '/kioto/609/DJI_20250829081912_0331_D.JPG',
+          '/kioto/609/DJI_20250829081918_0332_D.JPG',
+          '/kioto/609/DJI_20250829081726_0322_D.JPG',
+          '/kioto/609/DJI_20250829081632_0315_D.JPG',
+          '/kioto/609/DJI_20250829081604_0314_D.JPG',
+        ],
         price: 335730000,
         features: [
           '1 habitación con mezzanine',
@@ -137,7 +158,7 @@ export const projectsData: Record<string, ProjectData> = {
           unit: 'm²',
         },
         description: 'Apartamento compacto con diseño eficiente, ideal para jóvenes profesionales y estudiantes.',
-        images: ['/img/1.webp', '/img/imagen-medio-kunku.webp'],
+        images: ['/img/imagen-medio-kunku.webp'],
         features: [
           '1 habitación',
           '1 baño',
@@ -163,14 +184,16 @@ export const projectsData: Record<string, ProjectData> = {
       ],
     },
     gallery: [
-      '/img/1.webp',
-      '/img/imagen-medio-kunku.webp',
-      '/img/banner-kinku.webp',
-      '/img/Metriku-e1694531856484.webp',
-      '/img/imagen-medio-kunku.webp',
-      '/img/1.webp',
-      '/img/banner-kinku.webp',
-      '/img/imagen-medio-kunku.webp',
+      '/kioto/Coworking 3.jpg',
+      '/kioto/Gym 2.jpg',
+      '/kioto/Image (2) (1).jpg',
+      '/kioto/Imagen de WhatsApp 2025-06-19 a las 13.34.49_31286657.jpg',
+      '/kioto/Imagen de WhatsApp 2025-06-21 a las 12.18.11_a149b5ae (3).jpg',
+      '/kioto/IMG_2350.jpg',
+      '/kioto/IMG_4386.jpg',
+      '/kioto/IMG_5284 (1).jpg',
+      '/kioto/Terraza 1.jpg',
+      '/kioto/Terraza 3.jpg',
     ],
   },
   osaka: {
@@ -198,14 +221,13 @@ export const projectsData: Record<string, ProjectData> = {
       ],
     },
     gallery: [
-      '/img/imagen-medio-kunku.webp',
-      '/img/1.webp',
-      '/img/banner-kinku.webp',
-      '/img/Metriku-e1694531856484.webp',
-      '/img/imagen-medio-kunku.webp',
-      '/img/1.webp',
-      '/img/banner-kinku.webp',
-      '/img/imagen-medio-kunku.webp',
+      '/osaka/Captura de pantalla 2025-10-25 083117.jpg',
+      '/osaka/Captura de pantalla 2025-10-25 083131.jpg',
+      '/osaka/Captura de pantalla 2025-10-25 083201.jpg',
+      '/osaka/Captura de pantalla 2025-10-25 083235.jpg',
+      '/osaka/Captura de pantalla 2025-10-25 083305.jpg',
+      '/osaka/Captura de pantalla 2025-10-25 083455.jpg',
+      '/osaka/Captura de pantalla 2025-10-25 083511.jpg',
     ],
   },
   pekin: {

@@ -3,6 +3,7 @@ import { PageBanner } from '../components/common/PageBanner'
 import ProcolombiaSection from '../components/sostenibilidad/ProcolombiaSection'
 import InformacionInteresSection from '../components/sostenibilidad/InformacionInteresSection'
 import DocumentosInteresSection from '../components/sostenibilidad/DocumentosInteresSection'
+import ConstruccionSostenibleSection from '../components/sostenibilidad/ConstruccionSostenibleSection'
 
 export const Sostenibilidad = () => {
   useEffect(() => {
@@ -26,7 +27,9 @@ export const Sostenibilidad = () => {
         size="sm"
       />
 
-      
+      <div className="reveal-sos opacity-0 translate-y-6 transition-all duration-700 ease-out">
+        <ConstruccionSostenibleSection />
+      </div>
 
       <div className="reveal-sos opacity-0 translate-y-6 transition-all duration-700 ease-out">
         <ProcolombiaSection />

@@ -21,11 +21,15 @@ export const InformacionInteresSection = () => {
             </button> */}
           </div>
 
-          {/* Columna derecha: imagen */}
-          <div className="relative rounded-2xl overflow-hidden shadow-xl">
-            <img src="/img/El-futuro-de-la-construccion-ecologica-y-eficiente.webp" alt="Informes de sostenibilidad" className="w-full h-auto object-cover" />
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-white to-transparent"></div>
-          </div>
+        {/* Columna derecha: imagen */}
+        <div className="relative rounded-2xl overflow-hidden shadow-xl">
+          <img
+            src="/sostenibilidad/cityscape-wuxi-scaled-r0u2c4e5bti5tavhr432g36l2tlztrl2nvhdoo02ao.webp"
+            alt="Ciudad sostenible: informes y resultados"
+            className="w-full h-auto object-cover"
+          />
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-white to-transparent"></div>
+        </div>
         </div>
       </div>
     </section>
