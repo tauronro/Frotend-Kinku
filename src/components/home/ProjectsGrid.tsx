@@ -12,6 +12,47 @@ type ProjectCard = {
   external?: boolean
 }
 
+// Normaliza enlaces de Google Drive a un formato embebible para <img>
+const toDriveViewUrl = (url: string): string => {
+  try {
+    if (!url) return url
+    if (!url.includes('drive.google.com')) return url
+    if (url.includes('/uc?')) return url
+    const idFromPath = url.match(/\/d\/([^/]+)/)?.[1]
+    if (idFromPath) {
+      return `https://drive.google.com/uc?export=view&id=${idFromPath}`
+    }
+    const idFromQuery = url.match(/[?&]id=([^&]+)/)?.[1]
+    if (idFromQuery) {
+      return `https://drive.google.com/uc?export=view&id=${idFromQuery}`
+    }
+    return url
+  } catch {
+    return url
+  }
+}
+
+// Util: resolver imágenes externas (Drive) a un proxy CDN público para evitar CORS
+const resolveExternalImage = (src: string): string => {
+  if (!src) return '/img/1.webp'
+  try {
+    const u = new URL(src, window.location.origin)
+    const isDrive = u.hostname.includes('drive.google.com')
+    if (isDrive) {
+      const id =
+        u.searchParams.get('id') ||
+        (u.pathname.includes('/d/') ? u.pathname.split('/d/')[1]?.split('/')[0] : '')
+      if (id) {
+        // images.weserv.nl actúa como proxy de imágenes y evita CORS
+        return `https://images.weserv.nl/?url=ssl:drive.google.com/uc?id=${id}&export=download&w=2000&h=2000&fit=inside`
+      }
+    }
+  } catch {
+    // Ignorar parsing errors y devolver src original
+  }
+  return src
+}
+
 export const ProjectsGrid = () => {
   const [hoveredMapId, setHoveredMapId] = useState<number | null>(null)
 
@@ -19,7 +60,7 @@ export const ProjectsGrid = () => {
     {
       id: 1,
       name: 'Proyecto Osaka',
-      image: '/img/imagen-medio-kunku.webp',
+      image: 'https://drive.google.com/uc?export=view&id=169Zsv1sPf_wdobUQYxOsVukaoEKe0sGg',
       address: 'Calle 59 #17-43, Bogotá',
       description: 'Apartaestudios funcionales y modernos en ubicación estratégica.',
       href: '/proyecto-osaka',
@@ -28,7 +69,7 @@ export const ProjectsGrid = () => {
     {
       id: 2,
       name: 'Proyecto Kioto',
-      image: '/img/1.webp',
+      image: '/img/imagen-medio-kunku.webp',
       address: 'Calle 59 #17-43, Bogotá',
       description: 'Apartamentos y apartaestudios con acabados de primera calidad.',
       href: '/proyecto-kioto',
@@ -37,7 +78,7 @@ export const ProjectsGrid = () => {
     {
       id: 3,
       name: 'Proyecto Pekín',
-      image: '/img/banner-kinku.webp',
+      image: 'https://drive.google.com/uc?export=view&id=1a0qYM-H6h8VnULBawePtjOW6C7tEgdUj',
       address: 'Calle 59 #17-43, Bogotá',
       description: 'Disponibilidad actual con opciones flexibles de inversión.',
       href: 'https://proyectopekin.co',
@@ -76,7 +117,9 @@ export const ProjectsGrid = () => {
           {projects.map((project) => {
             const showMap = hoveredMapId === project.id
             const mapUrl = getGoogleStaticMapUrl(project.address)
-            const imgSrc = showMap && mapUrl ? mapUrl : project.image
+            const normalizedImage = toDriveViewUrl(project.image)
+            const resolvedImage = resolveExternalImage(normalizedImage)
+            const imgSrc = showMap && mapUrl ? mapUrl : resolvedImage
             const getBadges = () => {
               const badges: { label: string; style: React.CSSProperties; className?: string }[] = []
               // Estado principal
@@ -113,6 +156,14 @@ export const ProjectsGrid = () => {
                       alt={project.name}
                       loading="lazy"
                       decoding="async"
+                      width={1200}
+                      height={800}
+                      onError={(e) => {
+                        const fallback = '/img/El-futuro-de-la-construccion-ecologica-y-eficiente.webp'
+                        if (!e.currentTarget.src.includes(fallback)) {
+                          e.currentTarget.src = fallback
+                        }
+                      }}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>

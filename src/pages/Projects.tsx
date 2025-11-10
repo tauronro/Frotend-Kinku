@@ -11,6 +11,47 @@ type ProjectItem = {
   external?: boolean
 }
 
+// Normaliza enlaces de Google Drive a un formato embebible para <img>
+const toDriveViewUrl = (url: string): string => {
+  try {
+    if (!url) return url
+    if (!url.includes('drive.google.com')) return url
+    if (url.includes('/uc?')) return url
+    const idFromPath = url.match(/\/d\/([^/]+)/)?.[1]
+    if (idFromPath) {
+      return `https://drive.google.com/uc?export=view&id=${idFromPath}`
+    }
+    const idFromQuery = url.match(/[?&]id=([^&]+)/)?.[1]
+    if (idFromQuery) {
+      return `https://drive.google.com/uc?export=view&id=${idFromQuery}`
+    }
+    return url
+  } catch {
+    return url
+  }
+}
+
+// Util: resolver imágenes externas (Drive) a un proxy CDN público para evitar CORS
+const resolveExternalImage = (src: string): string => {
+  if (!src) return '/img/1.webp'
+  try {
+    const u = new URL(src, window.location.origin)
+    const isDrive = u.hostname.includes('drive.google.com')
+    if (isDrive) {
+      const id =
+        u.searchParams.get('id') ||
+        (u.pathname.includes('/d/') ? u.pathname.split('/d/')[1]?.split('/')[0] : '')
+      if (id) {
+        // images.weserv.nl actúa como proxy de imágenes y evita CORS
+        return `https://images.weserv.nl/?url=ssl:drive.google.com/uc?id=${id}&export=download&w=2000&h=2000&fit=inside`
+      }
+    }
+  } catch {
+    // Ignorar parsing errors y devolver src original
+  }
+  return src
+}
+
 export const Projects = () => {
   const sectionsRef = useRef<HTMLElement[]>([])
 
@@ -18,21 +59,21 @@ export const Projects = () => {
     {
       id: 'osaka',
       title: 'Proyecto Osaka',
-      image: '/img/imagen-medio-kunku.webp',
+      image: 'https://drive.google.com/uc?export=view&id=169Zsv1sPf_wdobUQYxOsVukaoEKe0sGg',
       excerpt: 'Apartaestudios funcionales y modernos para estudiantes y jóvenes profesionales.',
       link: '/proyecto-osaka'
     },
     {
       id: 'kioto',
       title: 'Proyecto Kioto',
-      image: '/img/1.webp',
+      image: '/img/imagen-medio-kunku.webp',
       excerpt: 'Apartamentos y apartaestudios con acabados de primera calidad.',
       link: '/proyecto-kioto'
     },
     {
       id: 'pekin',
       title: 'Proyecto Pekín',
-      image: '/img/banner-kinku.webp',
+      image: 'https://drive.google.com/uc?export=view&id=1a0qYM-H6h8VnULBawePtjOW6C7tEgdUj',
       excerpt: 'Disponibilidad actual en Pekín con opciones flexibles de inversión.',
       link: 'https://proyectopekin.co',
       external: true
@@ -85,10 +126,18 @@ export const Projects = () => {
               <div className="grid grid-cols-12 gap-6 items-center">
                 <div className="col-span-12 lg:col-span-10">
                   <img
-                    src={p.image}
+                    src={resolveExternalImage(toDriveViewUrl(p.image))}
                     alt={p.title}
                     loading="lazy"
+                    width={2000}
+                    height={1200}
                     className="w-full h-[55vh] md:h-[60vh] lg:h-[80vh] object-cover rounded-xl"
+                    onError={(e) => {
+                      const fallback = '/img/El-futuro-de-la-construccion-ecologica-y-eficiente.webp'
+                      if (!e.currentTarget.src.includes(fallback)) {
+                        e.currentTarget.src = fallback
+                      }
+                    }}
                   />
                 </div>
                 <div className="col-span-12 lg:col-span-2 h-auto lg:h-[80vh] flex">

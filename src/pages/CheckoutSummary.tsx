@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 import { PageBanner } from '../components/common/PageBanner'
+import { WompiCheckoutButton } from '../components/payments/WompiCheckoutButton'
 
 type Buyer = {
   fullName: string
@@ -42,6 +43,8 @@ export const CheckoutSummary = () => {
   }
 
   const formattedDate = new Date(data.date).toLocaleString()
+
+  // El flujo de Wompi se manejó en un componente independiente para claridad y reutilización.
 
   return (
     <div>
@@ -100,9 +103,16 @@ export const CheckoutSummary = () => {
                 <button onClick={() => navigate(-1)} className="px-5 py-2 rounded-md font-semibold bg-gray-100 hover:bg-gray-200 text-gray-800">
                   Volver
                 </button>
-                <button className="px-5 py-2 rounded-md font-semibold bg-[rgb(0_168_144)] text-white hover:opacity-90">
+                <WompiCheckoutButton
+                  orderId={data.orderId}
+                  project={data.project}
+                  amount={data.amount}
+                  customerType={data.customerType}
+                  buyer={data.buyer}
+                  className="px-5 py-2 rounded-md font-semibold bg-[rgb(0_168_144)] text-white hover:opacity-90"
+                >
                   Proceder con Wompi
-                </button>
+                </WompiCheckoutButton>
               </div>
             </div>
           </div>
