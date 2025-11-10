@@ -3,15 +3,15 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { PageBanner } from '../components/common/PageBanner'
 
 export const PaymentPortalKioto = () => {
-  const location = useLocation() as { state?: { project?: string; amount?: number } }
-  const [project, setProject] = useState(location.state?.project || 'Kioto')
+  const location = useLocation() as { state?: { amount?: number } }
   const [amount, setAmount] = useState<string>(location.state?.amount ? String(location.state.amount) : '')
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (location.state?.project) setProject(location.state.project)
-    if (typeof location.state?.amount === 'number') setAmount(String(location.state.amount))
-  }, [location.state])
+    if (typeof location.state?.amount === 'number') {
+      setAmount(String(location.state.amount))
+    }
+  }, [location.state?.amount])
   return (
     <div>
       <PageBanner title="Paga tu Proyecto de Vivienda" subtitle="Kioto" size="sm" />
