@@ -139,6 +139,7 @@ export const Header = () => {
               <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
                 <div className="py-2">
                   <Link to="/blog" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Blog</Link>
+                  <Link to="/metodos-de-financiamiento" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Métodos de financiamiento</Link>
                   <Link to="/portal-pagos" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Portal de Pagos</Link>
                   <Link to="/contacto" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Contacto</Link>
                 </div>
@@ -221,6 +222,15 @@ export const Header = () => {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Blog
+              </Link>
+              <Link 
+                to="/metodos-de-financiamiento" 
+                className={`nav-link transition-colors ${
+                  isActive('/metodos-de-financiamiento') ? 'text-primary-500' : 'text-gray-700 hover:text-primary-500'
+                }`}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Métodos de financiamiento
               </Link>
               <Link 
                 to="/contacto" 

@@ -8,10 +8,13 @@ export const Footer = () => {
           {/* Brand */}
           <div className="md:col-span-2">
             <Link to="/" className="flex items-center space-x-2 mb-4">
-              <div className="w-10 h-10 bg-primary-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">K</span>
-              </div>
-              <span className="text-2xl font-bold">Kinku</span>
+              <img
+                src="/logo/nuevo-logo-kinku.webp"
+                alt="Kinku"
+                className="h-10 md:h-12 w-auto object-contain"
+                loading="lazy"
+                decoding="async"
+              />
             </Link>
             <p className="text-gray-400 mb-6 max-w-md">
               Tu aliado inmobiliario en Bogotá. Proyectos modernos, calidad garantizada 

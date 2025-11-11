@@ -51,7 +51,7 @@ export const Contact = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900">Teléfono</h3>
-                    <p className="text-gray-600">+57 (1) 123-4567</p>
+                    <p className="text-gray-600">301 3242681</p>
                   </div>
                 </div>
                 
@@ -87,7 +87,7 @@ export const Contact = () => {
                 <div className="space-y-2 text-gray-600">
                   <div className="flex justify-between">
                     <span>Lunes - Viernes</span>
-                    <span>8:00 AM - 6:00 PM</span>
+                    <span>7:00 AM - 4:00 PM</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Sábados</span>

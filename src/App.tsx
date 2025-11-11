@@ -15,6 +15,7 @@ import Checkout from './pages/Checkout'
 import CheckoutSummary from './pages/CheckoutSummary'
 import Sostenibilidad from './pages/Sostenibilidad'
 import { ProjectPekin } from './pages/ProjectPekin'
+import MetodosFinanciamiento from './pages/MetodosFinanciamiento'
 import Politicas from './pages/Politicas'
 import Faqs from './pages/Faqs'
 
@@ -30,6 +31,7 @@ function App() {
           <Route path="/proyecto-kioto" element={<ProjectKioto />} />
           <Route path="/proyecto-osaka" element={<ProjectOsaka />} />
           <Route path="/proyecto-pekin" element={<ProjectPekin />} />
+          <Route path="/metodos-de-financiamiento" element={<MetodosFinanciamiento />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/contacto" element={<Contact />} />
           <Route path="/portal-pagos" element={<PaymentPortal />} />

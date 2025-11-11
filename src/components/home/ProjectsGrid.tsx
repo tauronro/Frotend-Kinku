@@ -60,7 +60,7 @@ export const ProjectsGrid = () => {
     {
       id: 1,
       name: 'Proyecto Osaka',
-      image: 'https://drive.google.com/uc?export=view&id=169Zsv1sPf_wdobUQYxOsVukaoEKe0sGg',
+      image: 'https://drive.google.com/file/d/1AbSTx265YL0ZGXc8RPds1RbYdKWHQ2ix/view?usp=drive_link',
       address: 'Calle 59 #17-43, Bogotá',
       description: 'Apartaestudios funcionales y modernos en ubicación estratégica.',
       href: '/proyecto-osaka',
@@ -78,7 +78,7 @@ export const ProjectsGrid = () => {
     {
       id: 3,
       name: 'Proyecto Pekín',
-      image: 'https://drive.google.com/uc?export=view&id=1a0qYM-H6h8VnULBawePtjOW6C7tEgdUj',
+      image: 'https://drive.google.com/file/d/1K4goCA7jNEu6p1ORATISTocWgaebVIc2/view?usp=drive_link',
       address: 'Calle 59 #17-43, Bogotá',
       description: 'Disponibilidad actual con opciones flexibles de inversión.',
       href: 'https://proyectopekin.co',

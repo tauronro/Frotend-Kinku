@@ -59,7 +59,7 @@ export const Projects = () => {
     {
       id: 'osaka',
       title: 'Proyecto Osaka',
-      image: 'https://drive.google.com/uc?export=view&id=169Zsv1sPf_wdobUQYxOsVukaoEKe0sGg',
+      image: 'https://drive.google.com/file/d/1AbSTx265YL0ZGXc8RPds1RbYdKWHQ2ix/view?usp=drive_link',
       excerpt: 'Apartaestudios funcionales y modernos para estudiantes y jóvenes profesionales.',
       link: '/proyecto-osaka'
     },
@@ -73,7 +73,7 @@ export const Projects = () => {
     {
       id: 'pekin',
       title: 'Proyecto Pekín',
-      image: 'https://drive.google.com/uc?export=view&id=1a0qYM-H6h8VnULBawePtjOW6C7tEgdUj',
+      image: 'https://drive.google.com/file/d/1K4goCA7jNEu6p1ORATISTocWgaebVIc2/view?usp=drive_link',
       excerpt: 'Disponibilidad actual en Pekín con opciones flexibles de inversión.',
       link: 'https://proyectopekin.co',
       external: true
