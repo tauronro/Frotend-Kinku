@@ -23,6 +23,8 @@ export const ProjectDetail = ({ project }: Props) => {
   const autoplayIntervalRef = useRef<number | null>(null)
   const sectionsRef = useRef<{ [key: string]: HTMLElement | null }>({})
   const [apartmentImageIndexById, setApartmentImageIndexById] = useState<Record<string, number>>({})
+  const [openTypeModalId, setOpenTypeModalId] = useState<string | null>(null)
+  const [openTypeModalIndex, setOpenTypeModalIndex] = useState<number>(0)
 
   // Util: resolver imágenes externas (Drive) a un proxy CDN público para evitar CORS
   const resolveExternalImage = (src: string | undefined): string => {
@@ -120,6 +122,9 @@ export const ProjectDetail = ({ project }: Props) => {
   const closeModal = () => {
     setIsModalOpen(false)
   }
+  const closeTypeModal = () => {
+    setOpenTypeModalId(null)
+  }
 
   const nextImage = () => {
     if (!project.gallery) return
@@ -141,6 +146,23 @@ export const ProjectDetail = ({ project }: Props) => {
     setSelectedImageIndex((prev) => (prev - 1 + project.gallery.length) % project.gallery.length)
   }
 
+  const openTypeModal = (typeId: string, startIndex: number) => {
+    setOpenTypeModalId(typeId)
+    setOpenTypeModalIndex(startIndex)
+  }
+  const nextTypeModalImage = () => {
+    if (!openTypeModalId) return
+    const t = project.apartmentTypes.find((x) => x.id === openTypeModalId)
+    if (!t || t.images.length === 0) return
+    setOpenTypeModalIndex((prev) => (prev + 1) % t.images.length)
+  }
+  const prevTypeModalImage = () => {
+    if (!openTypeModalId) return
+    const t = project.apartmentTypes.find((x) => x.id === openTypeModalId)
+    if (!t || t.images.length === 0) return
+    setOpenTypeModalIndex((prev) => (prev - 1 + t.images.length) % t.images.length)
+  }
+
   // Manejar teclas del teclado en el modal
   useEffect(() => {
     if (!isModalOpen) return
@@ -160,6 +182,22 @@ export const ProjectDetail = ({ project }: Props) => {
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [isModalOpen, project.gallery?.length])
+
+  // Teclas para modal de tipos
+  useEffect(() => {
+    if (!openTypeModalId) return
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        closeTypeModal()
+      } else if (e.key === 'ArrowLeft') {
+        prevTypeModalImage()
+      } else if (e.key === 'ArrowRight') {
+        nextTypeModalImage()
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [openTypeModalId])
 
   const tabs: { id: TabId; label: string }[] = [
     { id: 'proyecto', label: 'Proyecto' },
@@ -306,7 +344,7 @@ export const ProjectDetail = ({ project }: Props) => {
               {project.apartmentTypes.map((type) => (
               <div
                 key={type.id}
-                className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+                className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow relative"
               >
                 {/* <div className="relative h-64 overflow-hidden">
                   <img
@@ -320,7 +358,7 @@ export const ProjectDetail = ({ project }: Props) => {
                     </span>
                   </div>
                 </div> */}
-                <div className="p-6">
+                <div className="p-6 pb-20">
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">{type.name}</h3>
                   <div className="flex items-center gap-4 mb-4">
                     {type.bedrooms > 0 && (
@@ -333,7 +371,16 @@ export const ProjectDetail = ({ project }: Props) => {
                     </span>
                   </div>
                   {/* Mini carrusel por unidad */}
-                  <div className="relative mb-4 rounded-xl overflow-hidden">
+                  <div
+                    className="relative mb-4 rounded-xl overflow-hidden bg-gray-100 cursor-pointer"
+                    onClick={() =>
+                      openTypeModal(
+                        type.id,
+                        (apartmentImageIndexById[type.id] ?? 0) % (type.images.length || 1)
+                      )
+                    }
+                    aria-label={`Ver ${type.name} en grande`}
+                  >
                     <img
                       src={resolveExternalImage(type.images[(apartmentImageIndexById[type.id] ?? 0) % (type.images.length || 1)])}
                       alt={`${type.name} imagen`}
@@ -347,13 +394,14 @@ export const ProjectDetail = ({ project }: Props) => {
                       <div className="absolute inset-0 flex items-center justify-between px-2">
                         <button
                           aria-label="Anterior"
-                          onClick={() =>
+                          onClick={(e) => {
+                            e.stopPropagation()
                             setApartmentImageIndexById((prev) => ({
                               ...prev,
                               [type.id]:
                                 ((prev[type.id] ?? 0) - 1 + type.images.length) % type.images.length,
                             }))
-                          }
+                          }}
                           className="w-9 h-9 rounded-full bg-white/90 hover:bg-white text-gray-900 grid place-items-center shadow"
                         >
                           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -362,12 +410,13 @@ export const ProjectDetail = ({ project }: Props) => {
                         </button>
                         <button
                           aria-label="Siguiente"
-                          onClick={() =>
+                          onClick={(e) => {
+                            e.stopPropagation()
                             setApartmentImageIndexById((prev) => ({
                               ...prev,
                               [type.id]: ((prev[type.id] ?? 0) + 1) % type.images.length,
                             }))
-                          }
+                          }}
                           className="w-9 h-9 rounded-full bg-white/90 hover:bg-white text-gray-900 grid place-items-center shadow"
                         >
                           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -432,6 +481,17 @@ export const ProjectDetail = ({ project }: Props) => {
                       ))}
                     </div>
                   )}
+                  {/* CTA inferior: WhatsApp (barra completa) */}
+                  <a
+                    href={`https://wa.me/573013242681?text=${encodeURIComponent(
+                      `Hola Kinku, estoy interesado en ${project.title} – ${type.name}. ¿Me brindan más información?`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="absolute left-0 right-0 bottom-0 block px-4 py-3 text-center font-semibold bg-[#25D366] text-white hover:brightness-95 transition-colors"
+                  >
+                    Contactar por WhatsApp
+                  </a>
                 </div>
               </div>
             ))}
@@ -439,6 +499,73 @@ export const ProjectDetail = ({ project }: Props) => {
           )}
         </div>
       </section>
+
+      {/* Modal de imágenes para tipos de apartamentos */}
+      {openTypeModalId && (() => {
+        const t = project.apartmentTypes.find((x) => x.id === openTypeModalId)
+        if (!t) return null
+        return (
+          <div
+            className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
+            onClick={closeTypeModal}
+          >
+            <button
+              onClick={closeTypeModal}
+              className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
+              aria-label="Cerrar"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                prevTypeModalImage()
+              }}
+              className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
+              aria-label="Imagen anterior"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path>
+              </svg>
+            </button>
+
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                nextTypeModalImage()
+              }}
+              className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
+              aria-label="Imagen siguiente"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </button>
+
+            <div
+              className="max-w-7xl max-h-[90vh] flex items-center justify-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img
+                src={resolveExternalImage(t.images[openTypeModalIndex])}
+                alt={`${t.name} ${openTypeModalIndex + 1}`}
+                className="max-w-full max-h-[90vh] object-contain rounded-lg"
+                onError={(e) => {
+                  const target = e.currentTarget as HTMLImageElement
+                  target.src = '/img/1.webp'
+                }}
+              />
+            </div>
+
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm text-white text-sm">
+              {openTypeModalIndex + 1} / {t.images.length}
+            </div>
+          </div>
+        )
+      })()}
 
       {/* Sección: Zonas comunes */}
       <section

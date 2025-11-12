@@ -34,7 +34,7 @@ export const DocumentosInteresSection = () => {
       <div className="container">
         <div className="text-center mb-8">
           <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900">Certificados de interés</h2>
-          <p className="mt-2 text-gray-600">Consulta nuestros certificados de sostenibilidad y cumplimiento ambiental.</p>
+          <p className="mt-2 text-gray-600">Consulta nuestros certificados de sostenibilidad.</p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">

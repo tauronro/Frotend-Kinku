@@ -10,9 +10,10 @@ export const ProcolombiaSection = () => {
           </div>
           <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900">Nuestro compromiso con la sostenibilidad</h2>
           <p className="mt-4 text-gray-600 max-w-4xl mx-auto">
-            Implementamos un modelo de sostenibilidad que integra aspectos económicos, sociales y ambientales como
-            herramienta estratégica para alcanzar nuestros objetivos y mantener la coherencia entre lo que promovemos
-            y lo que aplicamos.
+            Adoptamos la sostenibilidad como un compromiso integral que guía cada uno de los objetivos estratégicos de la organización.
+            Promovemos prácticas responsables en el diseño, la construcción y la operación de nuestros proyectos, buscando generar un
+            impacto positivo en el medioambiente, el bienestar de las comunidades y el desarrollo económico del entorno. Nuestro
+            propósito es construir espacios que perduren en el tiempo y contribuyan a un futuro más equilibrado y sostenible.
           </p>
         </div>
 
