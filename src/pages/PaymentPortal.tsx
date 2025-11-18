@@ -81,8 +81,8 @@ export const PaymentPortal = () => {
                 onClick={() => {
                   setSelectedProduct(p.id)
                   if (p.id === 'kioto') navigate('/pago-kioto')
-                  if (p.id === 'metriku') window.location.href = 'http://localhost:5173/pago-metriku'
-                  if (p.id === 'pekin') window.open('https://proyectopekin.co', '_blank', 'noopener,noreferrer')
+                  if (p.id === 'metriku') navigate('/pago-metriku')
+                  if (p.id === 'pekin') window.open('https://tu360.bancolombia.com/inmobiliario/pagos-en-linea/pagar-cuota-inicial', '_blank', 'noopener,noreferrer')
                 }}
                 aria-pressed={selectedProduct===p.id}
                 className={`group relative text-center rounded-xl border transition-all duration-300 p-8 bg-white hover:bg-[rgba(0,168,144,0.08)] hover:-translate-y-1 hover:shadow-2xl ${selectedProduct===p.id ? 'border-[rgb(0_168_144)] shadow-xl ring-1 ring-[rgb(0_168_144)]' : 'border-[rgb(0_168_144)]/40'}`}
