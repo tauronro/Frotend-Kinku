@@ -60,21 +60,21 @@ export const Projects = () => {
       id: 'osaka',
       title: 'Proyecto Osaka',
       image: 'https://drive.google.com/file/d/1AbSTx265YL0ZGXc8RPds1RbYdKWHQ2ix/view?usp=drive_link',
-      excerpt: 'Apartaestudios funcionales y modernos para estudiantes y jóvenes profesionales.',
+      excerpt: 'Osaka combina innovación y sostenibilidad para ofrecer apartamentos amplios y modernos, diseñados para elevar la vida en familia y proyectarse al futuro.',
       link: '/proyecto-osaka'
     },
     {
       id: 'kioto',
       title: 'Proyecto Kioto',
       image: '/img/imagen-medio-kunku.webp',
-      excerpt: 'Apartamentos y apartaestudios con acabados de primera calidad.',
+      excerpt: 'Kioto está hecho para quienes buscan independencia: apartaestudios y apartamentos funcionales, con diseño sostenible y espacios inteligentes para iniciar una nueva etapa.',
       link: '/proyecto-kioto'
     },
     {
       id: 'pekin',
       title: 'Proyecto Pekín',
       image: 'https://drive.google.com/file/d/1K4goCA7jNEu6p1ORATISTocWgaebVIc2/view?usp=drive_link',
-      excerpt: 'Disponibilidad actual en Pekín con opciones flexibles de inversión.',
+      excerpt: 'Pekín destaca por su eficiencia y bienestar: apartamentos modernos con enfoque sostenible que te brindan un hogar práctico, cómodo y preparado para el mañana.',
       link: 'https://proyectopekin.co',
       external: true
     }
@@ -142,8 +142,10 @@ export const Projects = () => {
                 </div>
                 <div className="col-span-12 lg:col-span-2 h-auto lg:h-[80vh] flex">
                   <div className="bg-white rounded-xl shadow-xl p-6 relative z-10 h-full w-full flex flex-col justify-between overflow-hidden">
-                    <h3 className="text-3xl font-bold text-gray-900 mb-4">{p.title}</h3>
-                    <p className="text-gray-600 mb-6">{p.excerpt}</p>
+                    <div>
+                      <h3 className="text-3xl font-bold text-gray-900 mb-4">{p.title}</h3>
+                      <p className="text-gray-600 mb-6 leading-relaxed text-base">{p.excerpt}</p>
+                    </div>
                     <div className="flex flex-col gap-3">
                       {p.external ? (
                         <a href={p.link} target="_blank" rel="noopener noreferrer" className="w-full inline-flex items-center justify-center px-4 py-2 rounded-md font-semibold bg-[rgb(0_168_144)] text-white hover:opacity-90 transition-colors">Ver proyecto</a>

@@ -21,8 +21,8 @@ export const AboutExpertise = () => {
           </div>
 
           {/* Right: Experience block */}
-          <div className="grid sm:grid-cols-[auto,1fr] gap-6 items-center">
-            <div className="text-accent-500 font-extrabold text-6xl leading-none">25</div>
+          <div className="grid sm:grid-cols-[auto,1fr] gap-6 items-start">
+            <div className="text-accent-500 font-extrabold text-6xl leading-none pt-1">10</div>
             <div>
               <div className="flex items-center gap-3">
                 <span className="uppercase tracking-widest text-sm text-gray-700">Años de</span>

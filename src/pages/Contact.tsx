@@ -63,7 +63,7 @@ export const Contact = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900">Email</h3>
-                    <p className="text-gray-600">info@kinku.co</p>
+                    <p className="text-gray-600">info@kinku.com.co</p>
                   </div>
                 </div>
                 

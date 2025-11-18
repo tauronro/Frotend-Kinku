@@ -13,14 +13,14 @@ export const DocumentosInteresSection = () => {
   const docs: DocItem[] = [
     {
       id: 1,
-      title: 'Certificado de Sostenibilidad – Kinku (PDF)',
+      title: 'Pre-Certificado – Kioto (PDF)',
       thumb: '/sostenibilidad/beautiful-skyscraper-with-architecture-building-around-city-2-scaled-e1738357875144-2048x1024.webp',
       src: 'https://drive.google.com/file/d/1ednCM7eomDL8prp20SSQAEkmbybnzSd5/preview',
       size: 'PDF'
     },
     {
       id: 2,
-      title: 'Certificación / Documento de Cumplimiento Ambiental (PDF)',
+      title: 'Pre-Certificación – Pekin (PDF)',
       thumb: '/sostenibilidad/cityscape-wuxi-scaled-r0u2c4e5bti5avhr432g36l2tlztrl2nvhdoo02ao.webp',
       src: 'https://drive.google.com/file/d/1HqRfvIDRWKa_CMvk2TWeIyTX9jVVQ5_A/preview',
       size: 'PDF'

@@ -60,7 +60,7 @@ export const ProjectsGrid = () => {
     {
       id: 1,
       name: 'Proyecto Osaka',
-      image: 'https://drive.google.com/file/d/1AbSTx265YL0ZGXc8RPds1RbYdKWHQ2ix/view?usp=drive_link',
+      image: 'https://drive.google.com/file/d/1GDlngx8NjmqdNmMilsX_KSush0w1O6qY/view?usp=sharing',
       address: 'Calle 59 #17-43, Bogotá',
       description: 'Apartaestudios funcionales y modernos en ubicación estratégica.',
       href: '/proyecto-osaka',

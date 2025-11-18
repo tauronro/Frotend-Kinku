@@ -53,7 +53,7 @@ export const projectsData: Record<string, ProjectData> = {
     project: {
       description: 'Ubicado estratégicamente en el sector de la Castellana, Kioto brinda a sus familias distinción, centralidad y calidad de vida. Con 5 pisos habitables, este proyecto combina diseño contemporáneo, acabados de primera calidad y ubicación estratégica. Pensado para quienes buscan comodidad, estilo y excelente conectividad, con espacios eficientes y amenidades que elevan la experiencia de vivir.',
       location: {
-        address: 'Calle 93 # 47ª – 25, Bogotá',
+        address: 'Cra. 48 #91-98, Bogotá',
         neighborhood: 'La Castellana',
       },
     },
@@ -159,6 +159,7 @@ export const projectsData: Record<string, ProjectData> = {
         },
         description: 'Apartamento compacto con diseño eficiente, ideal para jóvenes profesionales y estudiantes.',
         images: ['/img/imagen-medio-kunku.webp'],
+        price: 234050000,
         features: [
           '1 habitación',
           '1 baño',
@@ -204,7 +205,7 @@ export const projectsData: Record<string, ProjectData> = {
     project: {
       description: 'Ubicado en el exclusivo sector de Ciudad Jardín Norte, este proyecto ofreció apartamentos entre 70 m² y 91 m², con 2 o 3 habitaciones, diseño único y acabados modernos. Todas las unidades han sido entregadas exitosamente y actualmente no hay disponibilidad vigente.',
       location: {
-        address: 'Ciudad Jardín Norte, Bogotá',
+        address: 'Carrera 58 B #129 A – 23, Bogotá',
         neighborhood: 'Ciudad Jardín Norte',
       },
     },

@@ -483,7 +483,7 @@ export const ProjectDetail = ({ project }: Props) => {
                   )}
                   {/* CTA inferior: WhatsApp (barra completa) */}
                   <a
-                    href={`https://wa.me/573013242681?text=${encodeURIComponent(
+                    href={`https://wa.me/573245179218?text=${encodeURIComponent(
                       `Hola Kinku, estoy interesado en ${project.title} – ${type.name}. ¿Me brindan más información?`
                     )}`}
                     target="_blank"
