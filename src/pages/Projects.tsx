@@ -59,7 +59,7 @@ export const Projects = () => {
     {
       id: 'osaka',
       title: 'Proyecto Osaka',
-      image: 'https://drive.google.com/file/d/1AbSTx265YL0ZGXc8RPds1RbYdKWHQ2ix/view?usp=drive_link',
+      image: 'https://drive.google.com/file/d/1GDlngx8NjmqdNmMilsX_KSush0w1O6qY/view?usp=sharing',
       excerpt: 'Osaka combina innovación y sostenibilidad para ofrecer apartamentos amplios y modernos, diseñados para elevar la vida en familia y proyectarse al futuro.',
       link: '/proyecto-osaka'
     },
