@@ -18,6 +18,7 @@ import { ProjectPekin } from './pages/ProjectPekin'
 import MetodosFinanciamiento from './pages/MetodosFinanciamiento'
 import Politicas from './pages/Politicas'
 import Faqs from './pages/Faqs'
+import { Pqr } from './pages/Pqr'
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
           <Route path="/sostenibilidad" element={<Sostenibilidad />} />
           <Route path="/politicas" element={<Politicas />} />
           <Route path="/faqs" element={<Faqs />} />
+          <Route path="/pqr" element={<Pqr />} />
         </Routes>
         <Footer />
       </div>
