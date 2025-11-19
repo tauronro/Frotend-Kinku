@@ -10,6 +10,44 @@ const MetodosFinanciamiento = () => {
   const [openIdx, setOpenIdx] = useState<number | null>(0)
 
   const driveSafe = (path: string) => encodeURI(path)
+  // Normaliza enlaces de Google Drive a un formato embebible para <img>
+  const toDriveViewUrl = (url: string): string => {
+    try {
+      if (!url) return url
+      if (!url.includes('drive.google.com')) return url
+      if (url.includes('/uc?')) return url
+      const idFromPath = url.match(/\/d\/([^/]+)/)?.[1]
+      if (idFromPath) {
+        return `https://drive.google.com/uc?export=view&id=${idFromPath}`
+      }
+      const idFromQuery = url.match(/[?&]id=([^&]+)/)?.[1]
+      if (idFromQuery) {
+        return `https://drive.google.com/uc?export=view&id=${idFromQuery}`
+      }
+      return url
+    } catch {
+      return url
+    }
+  }
+  // Resolver imágenes externas (Drive) a un proxy CDN público para evitar CORS
+  const resolveExternalImage = (src: string): string => {
+    if (!src) return '/img/1.webp'
+    try {
+      const u = new URL(src, window.location.origin)
+      const isDrive = u.hostname.includes('drive.google.com')
+      if (isDrive) {
+        const id =
+          u.searchParams.get('id') ||
+          (u.pathname.includes('/d/') ? u.pathname.split('/d/')[1]?.split('/')[0] : '')
+        if (id) {
+          return `https://images.weserv.nl/?url=ssl:drive.google.com/uc?id=${id}&export=download&w=2000&h=2000&fit=inside`
+        }
+      }
+    } catch {
+      // Ignorar parsing errors y devolver src original
+    }
+    return src
+  }
 
   const faqs: FaqItem[] = [
     {
@@ -75,9 +113,9 @@ const MetodosFinanciamiento = () => {
                 Préstamo solicitado a una entidad financiera para pagar la propiedad. Usualmente cubre el 70% del valor;
                 el 30% restante corresponde a la cuota inicial.
               </p>
-              <div className="mt-4 p-3 rounded-lg bg-emerald-50 text-emerald-700 text-sm">
+              {/* <div className="mt-4 p-3 rounded-lg bg-emerald-50 text-emerald-700 text-sm">
                 En Kinku recomendamos las líneas verdes de Davivienda: créditos sostenibles con enfoque ambiental.
-              </div>
+              </div> */}
             </div>
 
             <div className="rounded-2xl border border-gray-200 p-6 shadow-sm hover:shadow-md transition">
@@ -106,11 +144,10 @@ const MetodosFinanciamiento = () => {
                 <div className="p-8 md:p-12 flex items-center">
                   <div>
                     <h3 className="text-3xl md:text-5xl leading-tight font-extrabold text-white mb-6">
-                      Adquiere un apartaestudio tipo VIS en nuestro proyecto de vivienda Kioto.
+                     Adquire apartamentos modernos en nuestro proyecto Pekín
                     </h3>
                     <p className="text-gray-200 text-lg md:text-xl">
-                      Sepáralo con el 1% del valor de la propiedad. Si no cuentas con el monto total de la cuota inicial de un apartamento,
-                      tienes la facilidad de pagar a cuotas. En Kinku te ofrecemos hasta 18 meses de plazo para realizar el pago.
+                    separalo con desde 1.000.000 de pesos, sino cuentas con el monto total de la cuota inicial del apartamento tienes la facilidad de pagar a cuotas.
                     </p>
                   </div>
                 </div>
@@ -118,7 +155,7 @@ const MetodosFinanciamiento = () => {
                 <div className="relative">
                   <div className="absolute inset-0 bg-gradient-to-l from-black/30 to-transparent lg:bg-gradient-to-t"></div>
                   <img
-                    src={driveSafe('/img/Calle.webp')}
+                    src={resolveExternalImage(toDriveViewUrl('https://drive.google.com/file/d/1K4goCA7jNEu6p1ORATISTocWgaebVIc2/view?usp=drive_link'))}
                     alt="Vía urbana frente a proyectos de vivienda Kinku"
                     className="w-full h-[360px] sm:h-[420px] md:h-[520px] lg:h-full object-cover"
                     loading="lazy"

@@ -806,9 +806,9 @@ export const ProjectDetail = ({ project }: Props) => {
                       </svg>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-gray-900">Teléfono</h4>
-                      <p className="text-gray-600">+57 (1) 123-4567</p>
-                    </div>
+                    <h3 className="font-semibold text-gray-900">Teléfono</h3>
+                    <p className="text-gray-600">301 3242681</p>
+                  </div>
                   </div>
 
                   <div className="flex items-start">
@@ -819,7 +819,7 @@ export const ProjectDetail = ({ project }: Props) => {
                     </div>
                     <div>
                       <h4 className="font-semibold text-gray-900">Email</h4>
-                      <p className="text-gray-600">info@kinku.co</p>
+                      <p className="text-gray-600">info@kinku.com.co</p>
                     </div>
                   </div>
 
