@@ -43,7 +43,7 @@ export const HeroLanding = () => {
         </h1>
         <p ref={descRef} className="mt-6 text-white/70 max-w-3xl mx-auto text-xs md:text-sm opacity-0 translate-y-4 transition-all duration-700 ease-out">
           En Bogotá, Kinku crea espacios con diseño moderno, ubicación privilegiada y respaldo confiable,
-          pensados para brindarte una inversión segura y una vida con estilo.
+          pensados para brindarte una inversión segura y con estilo.
         </p>
         <div ref={ctaRef} className="mt-10 opacity-0 translate-y-4 transition-all duration-700 ease-out">
           <Link to="/proyectos" className="btn border border-white/30 text-white hover:bg-white hover:text-gray-900">

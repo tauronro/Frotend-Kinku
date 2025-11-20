@@ -13,11 +13,6 @@ const allies: Ally[] = [
     logo: '/logo/LOGOHORIZONTAL_CCCS-3-1536x613.webp',
   },
   {
-    id: 'ayda',
-    name: 'Ayda',
-    logo: '/logo/LOGO-AYDA-VARIACIONES-MORADO-Y-ROJO-768x768.webp',
-  },
-  {
     id: 'ally1',
     name: 'Aliado Comercial',
     logo: '/logo/1-600x335.webp',

@@ -144,10 +144,10 @@ const MetodosFinanciamiento = () => {
                 <div className="p-8 md:p-12 flex items-center">
                   <div>
                     <h3 className="text-3xl md:text-5xl leading-tight font-extrabold text-white mb-6">
-                     Adquire apartamentos modernos en nuestro proyecto Pekín
+                     Adquiere apartamentos modernos en nuestro proyecto Pekín
                     </h3>
                     <p className="text-gray-200 text-lg md:text-xl">
-                    separalo con desde 1.000.000 de pesos, sino cuentas con el monto total de la cuota inicial del apartamento tienes la facilidad de pagar a cuotas.
+                      Separalo desde 1.000.000 de pesos, sino cuentas con el monto total de la cuota inicial del apartamento tienes la facilidad de pagar a cuotas.
                     </p>
                   </div>
                 </div>

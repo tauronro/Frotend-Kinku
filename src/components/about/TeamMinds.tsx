@@ -13,7 +13,7 @@ const team: TeamMember[] = [
   {
     id: 1,
     name: 'Mario Ernesto Ortiz Escobar',
-    role: 'Gerente de Proyectos',
+    role: 'Representante Legal',
     img: '/profiles/ADMINISTRATIVO-Arq.Ma Ernesto-06.png',
     phrase:
       '"Fundé Kinku para trabajar de la mano de mi familia con gran pasión para alcanzar la excelencia en todas las edificaciones"',
@@ -23,7 +23,7 @@ const team: TeamMember[] = [
   {
     id: 2,
     name: 'Mario Andrés Ortiz Bernal',
-    role: 'Gerente Administrativo y Financiero',
+    role: 'Gerente de Proyectos',
     img: '/profiles/ADMINISTRATIVO-Ing.Ma Andres-01.png',
     phrase: '"Feliz de trabajar en Kinku y poder aportar a construir un mejor país"',
     bio:
@@ -42,8 +42,8 @@ const team: TeamMember[] = [
   {
     id: 4,
     name: 'Sonia Elizabeth Bernal Torres',
-    role: 'Representante Legal',
-    img: '/profiles/ADMINISTRATIVO-Arq.Sonia-05.png',
+    role: 'Subgerente',
+    img: '/profiles/DMINISTRATIVO-Arq.Sonia-05.png',
     phrase:
       '"Fundé Kinku con el objetivo de transmitir los valores de una familia unida y trabajadora orgullosa de ser colombiana"',
     bio:
