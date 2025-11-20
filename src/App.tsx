@@ -19,6 +19,7 @@ import MetodosFinanciamiento from './pages/MetodosFinanciamiento'
 import Politicas from './pages/Politicas'
 import Faqs from './pages/Faqs'
 import { Pqr } from './pages/Pqr'
+import ServiciosPostVenta from './pages/ServiciosPostVenta'
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
           <Route path="/politicas" element={<Politicas />} />
           <Route path="/faqs" element={<Faqs />} />
           <Route path="/pqr" element={<Pqr />} />
+          <Route path="/servicios-post-venta" element={<ServiciosPostVenta />} />
         </Routes>
         <Footer />
       </div>

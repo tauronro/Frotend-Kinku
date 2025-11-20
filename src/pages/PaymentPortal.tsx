@@ -6,6 +6,8 @@ export const PaymentPortal = () => {
   const navigate = useNavigate()
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null)
   const [openFaq, setOpenFaq] = useState<number | null>(0)
+  const [isPekinModalOpen, setIsPekinModalOpen] = useState(false)
+  const [showPseInstructivo, setShowPseInstructivo] = useState(false)
 
   const products = [
     {
@@ -80,9 +82,20 @@ export const PaymentPortal = () => {
                 key={p.id}
                 onClick={() => {
                   setSelectedProduct(p.id)
-                  if (p.id === 'kioto') navigate('/pago-kioto')
-                  if (p.id === 'metriku') navigate('/pago-metriku')
-                  if (p.id === 'pekin') window.open('https://tu360.bancolombia.com/inmobiliario/pagos-en-linea/pagar-cuota-inicial', '_blank', 'noopener,noreferrer')
+                  if (p.id === 'kioto') {
+                    setIsPekinModalOpen(false)
+                    setShowPseInstructivo(false)
+                    navigate('/pago-kioto')
+                  }
+                  if (p.id === 'metriku') {
+                    setIsPekinModalOpen(false)
+                    setShowPseInstructivo(false)
+                    navigate('/pago-metriku')
+                  }
+                  if (p.id === 'pekin') {
+                    setShowPseInstructivo(false)
+                    setIsPekinModalOpen(true)
+                  }
                 }}
                 aria-pressed={selectedProduct===p.id}
                 className={`group relative text-center rounded-xl border transition-all duration-300 p-8 bg-white hover:bg-[rgba(0,168,144,0.08)] hover:-translate-y-1 hover:shadow-2xl ${selectedProduct===p.id ? 'border-[rgb(0_168_144)] shadow-xl ring-1 ring-[rgb(0_168_144)]' : 'border-[rgb(0_168_144)]/40'}`}
@@ -124,6 +137,120 @@ export const PaymentPortal = () => {
               ))}
             </div>
           </div>
+
+          {/* Modal Pekín */}
+          {isPekinModalOpen && (
+            <div
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4"
+              onClick={() => {
+                setIsPekinModalOpen(false)
+                setShowPseInstructivo(false)
+              }}
+            >
+              <div
+                className="w-full max-w-md bg-white rounded-2xl shadow-2xl p-6 relative"
+                onClick={(e) => e.stopPropagation()}
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="pekin-modal-title"
+              >
+                <button
+                  type="button"
+                  className="absolute top-3 right-3 text-gray-400 hover:text-gray-600"
+                  onClick={() => {
+                    setIsPekinModalOpen(false)
+                    setShowPseInstructivo(false)
+                  }}
+                  aria-label="Cerrar"
+                >
+                  ✕
+                </button>
+                {!showPseInstructivo ? (
+                  <>
+                    <h3
+                      id="pekin-modal-title"
+                      className="text-xl font-semibold text-gray-900 mb-2"
+                    >
+                      Pagos proyecto Pekín
+                    </h3>
+                    <p className="text-sm text-gray-600 mb-5">
+                      Antes de realizar tu pago, te recomendamos revisar el instructivo PSE. Luego
+                      podrás continuar al portal seguro de pagos.
+                    </p>
+                    <div className="space-y-3">
+                      <button
+                        type="button"
+                        onClick={() => setShowPseInstructivo(true)}
+                        className="w-full inline-flex items-center justify-center px-4 py-2.5 rounded-lg font-semibold border border-[rgb(0_168_144)] text-[rgb(0_168_144)] hover:bg-[rgb(0_168_144)] hover:text-white transition-colors text-sm"
+                      >
+                        Ver instructivo PSE
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          window.open(
+                            'https://tu360.bancolombia.com/inmobiliario/pagos-en-linea/pagar-cuota-inicial',
+                            '_blank',
+                            'noopener,noreferrer'
+                          )
+                          setIsPekinModalOpen(false)
+                          setShowPseInstructivo(false)
+                        }}
+                        className="w-full inline-flex items-center justify-center px-4 py-2.5 rounded-lg font-semibold bg-[rgb(0_168_144)] text-white hover:opacity-90 transition-colors text-sm"
+                      >
+                        Realice aquí su pago
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <h3
+                      id="pekin-modal-title"
+                      className="text-xl font-semibold text-gray-900 mb-3"
+                    >
+                      Instructivo PSE - Proyecto Pekín
+                    </h3>
+                    <p className="text-sm text-gray-600 mb-4">
+                      Revisa el instructivo antes de continuar con tu pago. Puedes acercar o
+                      desplazarte dentro del documento según necesites.
+                    </p>
+                    <div className="w-full h-80 md:h-[480px] rounded-lg overflow-hidden border border-gray-200">
+                      <iframe
+                        src="https://drive.google.com/file/d/1xFXHf25zcEDfaxYNWsTCWCdJc7Cm2Pj5/preview"
+                        title="Instructivo PSE Pekín"
+                        className="w-full h-full"
+                        allow="autoplay"
+                      ></iframe>
+                    </div>
+                    <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:justify-between">
+                      <button
+                        type="button"
+                        onClick={() => setShowPseInstructivo(false)}
+                        className="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2.5 rounded-lg font-semibold border border-gray-300 text-gray-700 hover:bg-gray-100 transition-colors text-sm"
+                      >
+                        Volver
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          window.open(
+                            'https://tu360.bancolombia.com/inmobiliario/pagos-en-linea/pagar-cuota-inicial',
+                            '_blank',
+                            'noopener,noreferrer'
+                          )
+                          setIsPekinModalOpen(false)
+                          setShowPseInstructivo(false)
+                        }}
+                        className="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2.5 rounded-lg font-semibold bg-[rgb(0_168_144)] text-white hover:opacity-90 transition-colors text-sm"
+                      >
+                        Realice aquí su pago
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </section>
     </div>
