@@ -47,6 +47,50 @@ export const ProjectDetail = ({ project }: Props) => {
     return src
   }
 
+  // Utils para manejar URLs de YouTube en la galería
+  const isYouTubeUrl = (src: string | undefined): boolean => {
+    if (!src) return false
+    try {
+      const u = new URL(src, window.location.origin)
+      return (
+        u.hostname.includes('youtube.com') ||
+        u.hostname === 'youtu.be' ||
+        u.hostname.includes('youtu.be')
+      )
+    } catch {
+      return false
+    }
+  }
+
+  const getYouTubeId = (src: string): string | null => {
+    try {
+      const u = new URL(src, window.location.origin)
+      if (u.hostname === 'youtu.be' || u.hostname.includes('youtu.be')) {
+        return u.pathname.replace('/', '').split('?')[0] || null
+      }
+      if (u.hostname.includes('youtube.com')) {
+        const v = u.searchParams.get('v')
+        if (v) return v
+      }
+      return null
+    } catch {
+      return null
+    }
+  }
+
+  const getYouTubeEmbedUrl = (src: string): string | undefined => {
+    const id = getYouTubeId(src)
+    if (!id) return undefined
+    return `https://www.youtube.com/embed/${id}`
+  }
+
+  const getYouTubeThumbnailUrl = (src: string): string | undefined => {
+    const id = getYouTubeId(src)
+    if (!id) return undefined
+    // Usamos thumbnail HQ por defecto
+    return `https://img.youtube.com/vi/${id}/hqdefault.jpg`
+  }
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -617,19 +661,41 @@ export const ProjectDetail = ({ project }: Props) => {
               Galería del Proyecto
             </h2>
             
-            {/* Carrusel principal */}
+            {/* Carrusel principal (imágenes + video YouTube) */}
             <div className="relative max-w-6xl mx-auto mb-6">
               <div className="relative h-80 md:h-[500px] rounded-2xl overflow-hidden shadow-2xl group">
-                <img
-                  src={resolveExternalImage(project.gallery[currentImageIndex])}
-                  alt={`${project.title} ${currentImageIndex + 1}`}
-                  className="w-full h-full object-cover cursor-pointer transition-opacity duration-500"
-                  onClick={() => handleImageClick(currentImageIndex)}
-                  onError={(e) => {
-                    const target = e.currentTarget as HTMLImageElement
-                    target.src = '/img/1.webp'
-                  }}
-                />
+                {(() => {
+                  const currentItem = project.gallery[currentImageIndex]
+                  const isVideo = isYouTubeUrl(currentItem)
+                  if (isVideo) {
+                    const embedUrl = getYouTubeEmbedUrl(currentItem)
+                    return (
+                      <div className="w-full h-full bg-black cursor-pointer" onClick={() => handleImageClick(currentImageIndex)}>
+                        {embedUrl && (
+                          <iframe
+                            src={embedUrl}
+                            title={`${project.title} video`}
+                            className="w-full h-full"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowFullScreen
+                          ></iframe>
+                        )}
+                      </div>
+                    )
+                  }
+                  return (
+                    <img
+                      src={resolveExternalImage(currentItem)}
+                      alt={`${project.title} ${currentImageIndex + 1}`}
+                      className="w-full h-full object-cover cursor-pointer transition-opacity duration-500"
+                      onClick={() => handleImageClick(currentImageIndex)}
+                      onError={(e) => {
+                        const target = e.currentTarget as HTMLImageElement
+                        target.src = '/img/1.webp'
+                      }}
+                    />
+                  )
+                })()}
                 
                 {/* Overlay con botones */}
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-between p-4">
@@ -639,7 +705,7 @@ export const ProjectDetail = ({ project }: Props) => {
                       prevImage()
                     }}
                     className="opacity-0 group-hover:opacity-100 transition-opacity w-12 h-12 rounded-full bg-white/90 hover:bg-white flex items-center justify-center shadow-lg"
-                    aria-label="Imagen anterior"
+                    aria-label="Anterior"
                   >
                     <svg className="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path>
@@ -662,7 +728,7 @@ export const ProjectDetail = ({ project }: Props) => {
                       nextImage()
                     }}
                     className="opacity-0 group-hover:opacity-100 transition-opacity w-12 h-12 rounded-full bg-white/90 hover:bg-white flex items-center justify-center shadow-lg"
-                    aria-label="Imagen siguiente"
+                    aria-label="Siguiente"
                   >
                     <svg className="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
@@ -686,7 +752,7 @@ export const ProjectDetail = ({ project }: Props) => {
               </div>
             </div>
 
-            {/* Thumbnails */}
+            {/* Thumbnails (imágenes + video) */}
             <div className="max-w-6xl mx-auto">
               <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2">
                 {project.gallery.map((img, idx) => (
@@ -699,15 +765,36 @@ export const ProjectDetail = ({ project }: Props) => {
                         : 'border-transparent hover:border-gray-300'
                     }`}
                   >
-                    <img
-                      src={resolveExternalImage(img)}
-                      alt={`${project.title} thumbnail ${idx + 1}`}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        const target = e.currentTarget as HTMLImageElement
-                        target.src = '/img/1.webp'
-                      }}
-                    />
+                    {(() => {
+                      const isVideo = isYouTubeUrl(img)
+                      const thumb = isVideo ? getYouTubeThumbnailUrl(img) : resolveExternalImage(img)
+                      return (
+                        <>
+                          <img
+                            src={thumb}
+                            alt={`${project.title} thumbnail ${idx + 1}`}
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              const target = e.currentTarget as HTMLImageElement
+                              target.src = '/img/1.webp'
+                            }}
+                          />
+                          {isVideo && (
+                            <span className="absolute inset-0 flex items-center justify-center">
+                              <span className="w-8 h-8 bg-black/60 rounded-full flex items-center justify-center">
+                                <svg
+                                  className="w-4 h-4 text-white"
+                                  fill="currentColor"
+                                  viewBox="0 0 20 20"
+                                >
+                                  <path d="M6.5 5.5v9l7-4.5-7-4.5z" />
+                                </svg>
+                              </span>
+                            </span>
+                          )}
+                        </>
+                      )
+                    })()}
                   </button>
                 ))}
               </div>
@@ -760,15 +847,37 @@ export const ProjectDetail = ({ project }: Props) => {
                 className="max-w-7xl max-h-[90vh] flex items-center justify-center"
                 onClick={(e) => e.stopPropagation()}
               >
-                <img
-                  src={resolveExternalImage(project.gallery[selectedImageIndex])}
-                  alt={`${project.title} ${selectedImageIndex + 1}`}
-                  className="max-w-full max-h-[90vh] object-contain rounded-lg"
-                  onError={(e) => {
-                    const target = e.currentTarget as HTMLImageElement
-                    target.src = '/img/1.webp'
-                  }}
-                />
+                {(() => {
+                  const item = project.gallery[selectedImageIndex]
+                  const isVideo = isYouTubeUrl(item)
+                  if (isVideo) {
+                    const embedUrl = getYouTubeEmbedUrl(item)
+                    return (
+                      <div className="w-full h-[70vh] max-h-[90vh] bg-black rounded-lg overflow-hidden">
+                        {embedUrl && (
+                          <iframe
+                            src={embedUrl}
+                            title={`${project.title} video`}
+                            className="w-full h-full"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowFullScreen
+                          ></iframe>
+                        )}
+                      </div>
+                    )
+                  }
+                  return (
+                    <img
+                      src={resolveExternalImage(item)}
+                      alt={`${project.title} ${selectedImageIndex + 1}`}
+                      className="max-w-full max-h-[90vh] object-contain rounded-lg"
+                      onError={(e) => {
+                        const target = e.currentTarget as HTMLImageElement
+                        target.src = '/img/1.webp'
+                      }}
+                    />
+                  )
+                })()}
               </div>
 
               {/* Contador de imágenes */}

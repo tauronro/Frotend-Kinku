@@ -46,7 +46,7 @@ export const Home = () => {
         <Metriku />
       </div>
 
-      <div className="reveal opacity-0 translate-x-6 lg:translate-x-8 transition-all duration-700 ease-out" data-anim="right">
+      <div className="reveal opacity-0 transition-all duration-700 ease-out" data-anim="right">
         <Financing />
       </div>
 
