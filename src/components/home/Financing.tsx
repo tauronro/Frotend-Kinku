@@ -28,11 +28,11 @@ export const Financing = () => {
           {/* Contenido Derecho */}
           <div className="space-y-8 animate-slide-in-right">
             <h2 className="text-4xl lg:text-5xl font-bold text-white leading-tight animate-slide-up">
-              Adquiere tu apartamento con nuestras opciones de crédito
+              Tu nuevo hogar te espera en Pekín.
             </h2>
             
             <p className="text-xl text-white/80 leading-relaxed animate-slide-up">
-              En Kinku hacemos realidad tu sueño de <strong className="text-primary-400 animate-pulse">Apartamento Propio</strong> con opciones de crédito diseñadas para ti. ¡Descubre cómo empezar a construir tu futuro hoy!
+            Espacios modernos, acabados premium y una ubicación con proyección. Reserva tu apartamento desde <strong className="text-primary-400 animate-pulse">$2.000.000 </strong> y paga la cuota inicial a tu ritmo.
             </p>
             
             <Link to="/portal-pagos" className="inline-flex items-center bg-primary-500 hover:bg-primary-600 text-white font-bold px-8 py-4 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-2xl animate-bounce-in">
