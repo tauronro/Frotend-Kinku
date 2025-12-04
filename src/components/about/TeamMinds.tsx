@@ -43,7 +43,7 @@ const team: TeamMember[] = [
     id: 4,
     name: 'Sonia Elizabeth Bernal Torres',
     role: 'Subgerente',
-    img: '/profiles/DMINISTRATIVO-Arq.Sonia-05.png',
+    img: '/profiles/ADMINISTRATIVO-Arq.Sonia-05.png',
     phrase:
       '"Fundé Kinku con el objetivo de transmitir los valores de una familia unida y trabajadora orgullosa de ser colombiana"',
     bio:
