@@ -226,7 +226,6 @@ export const Checkout = () => {
                 >
                   Actualizar el monto de pago
                 </button>
-                <button className="px-5 py-2 rounded-md font-semibold bg-[rgb(0_168_144)]/10 text-[rgb(0_168_144)] hover:bg-[rgb(0_168_144)]/20">Realizar Pago de Proyecto Pekín (Bancolombia)</button>
               </div>
             </div>
           </div>
