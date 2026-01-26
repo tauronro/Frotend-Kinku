@@ -33,11 +33,11 @@ export const Contact = () => {
           <div className="text-center mb-16">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">Contacto</h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              ¿Listo para encontrar tu hogar ideal? Contáctanos y te ayudaremos a encontrar 
+              ¿Listo para encontrar tu hogar ideal? Contáctanos y te ayudaremos a encontrar
               la mejor opción para ti.
             </p>
           </div>
-          
+
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Información de contacto */}
             <div>
@@ -54,7 +54,7 @@ export const Contact = () => {
                     <p className="text-gray-600">301 3242681</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start">
                   <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mr-4">
                     <svg className="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -66,8 +66,8 @@ export const Contact = () => {
                     <p className="text-gray-600">info@kinku.com.co</p>
                   </div>
                 </div>
-                
-                <div className="flex items-start">
+
+                <div className="flex items-center">
                   <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mr-4">
                     <svg className="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
@@ -76,11 +76,15 @@ export const Contact = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900">Dirección</h3>
-                    <p className="text-gray-600">Bogotá, Colombia</p>
+                    <p className="text-gray-600">
+                      Edificio Emprendu 83.<br />
+                      Carrera 13#83-19<br />
+                      Piso 2 Oficinas 10-11-12<br />
+                      Bogotá, Colombia</p>
                   </div>
                 </div>
               </div>
-              
+
               {/* Horarios */}
               <div className="mt-8 p-6 bg-gray-50 rounded-lg">
                 <h3 className="font-semibold text-gray-900 mb-4">Horarios de Atención</h3>
@@ -100,7 +104,7 @@ export const Contact = () => {
                 </div>
               </div>
             </div>
-            
+
             {/* Formulario */}
             <div>
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Envíanos un mensaje</h2>
@@ -119,7 +123,7 @@ export const Contact = () => {
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                   />
                 </div>
-                
+
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
                     Email
@@ -134,7 +138,7 @@ export const Contact = () => {
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                   />
                 </div>
-                
+
                 <div>
                   <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
                     Teléfono
@@ -148,7 +152,7 @@ export const Contact = () => {
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                   />
                 </div>
-                
+
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
                     Mensaje
@@ -163,7 +167,7 @@ export const Contact = () => {
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                   ></textarea>
                 </div>
-                
+
                 <button type="submit" className="btn btn-primary w-full">
                   Enviar Mensaje
                 </button>
