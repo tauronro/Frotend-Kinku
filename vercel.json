@@ -4,7 +4,7 @@
   "outputDirectory": "dist",
   "redirects": [
     {
-      "source": "/proyecto-pekin/:match*",
+      "source": "/proyecto-pekin",
       "destination": "https://darkseagreen-koala-884497.hostingersite.com/",
       "permanent": true
     }
