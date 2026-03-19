@@ -81,7 +81,7 @@ export const ProjectsGrid = () => {
       image: 'https://drive.google.com/file/d/1K4goCA7jNEu6p1ORATISTocWgaebVIc2/view?usp=drive_link',
       address: 'Calle 59 #17-43, Bogotá',
       description: 'Disponibilidad actual con opciones flexibles de inversión.',
-      href: 'https://proyectopekin.co',
+      href: '/proyecto-pekin',
       status: 'DISPONIBLE',
       external: true
     }
